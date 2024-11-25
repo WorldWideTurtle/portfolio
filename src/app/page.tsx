@@ -4,6 +4,7 @@ import Skills from "@/components/Sections/skills";
 export default function Home() {
 	return (
 		<>
+			<div className="pt-12"></div>
 			<Hero />
 			<Skills />
 		</>

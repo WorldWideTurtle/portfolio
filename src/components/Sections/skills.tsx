@@ -1,5 +1,6 @@
 import Image from "next/image"
-
+import LanternIcon from "@/icons/Lantern.svg"
+import ChainIcon from "@/icons/Chain.svg"
 
 export default function Skills() {
     return (
@@ -24,7 +25,12 @@ export default function Skills() {
                     maskImage: "linear-gradient(to bottom, rgba(1,1,1,0) 25%, rgba(1,1,1,0.1) 50%, rgba(1,1,1,0.15))"
                 }}
             /> 
-            <div>Test</div>
+            <div className="relative w-fit">
+                <LanternIcon className="fill-primary w-[15vw] max-w-[100px]"/>
+                <ChainIcon className="absolute top-0 translate-y-[-100%] left-[50%] translate-x-[-50%]" style={{
+                    fill: "linear-gradient(to top,red,blue)"
+                }}/>
+            </div>
         </div>
     )
 }

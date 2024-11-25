@@ -14,7 +14,8 @@ export default function Header() {
     let navbar : MutableRefObject<HTMLHeadingElement | null> = useRef(null)
     
     useEffect(()=>{
-        let scrollHandler = () => {
+        let lastUpdate = 0;
+        let updateOpacity = () => {
             if (navbar.current === null) return;
 
             let buffer = 10;
@@ -22,13 +23,17 @@ export default function Header() {
             let maxOffset = 75;
             let ratio = Math.min(1,scrollOffset / maxOffset)
 
+            if (ratio === lastUpdate) return;
+            lastUpdate = ratio;
             navbar.current.style.setProperty("--stop",(ratio * 95).toString() + "%")
             navbar.current.style.setProperty("--tw-bg-opacity",(ratio * .8).toString());
         }
 
-        document.addEventListener("scroll",scrollHandler)
+        updateOpacity();
 
-        return () => document.removeEventListener("scroll",scrollHandler)
+        document.addEventListener("scroll",updateOpacity)
+
+        return () => document.removeEventListener("scroll",updateOpacity)
     }, [])
 
     return (

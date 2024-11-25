@@ -24,13 +24,20 @@ export default function VerticalText() {
         topCharacter.forEach(lambda)
         bottomCharacter.forEach(lambda)
 
+        let buffer = 100;
+
         let hoverHandler = (e : globalThis.MouseEvent) => {
             if (bottom.current === null) return;
 
-            let x = e.clientX - bottom.current.offsetLeft;
-            let y = e.clientY - bottom.current.offsetTop;
+            let current = bottom.current;
 
-            bottom.current.style.backgroundImage = `radial-gradient(circle at ${x}px ${y}px, rgb(255, 144, 1), rgba(255, 179, 0, 0) 20%)`
+            let x = e.clientX - current.offsetLeft;
+            let y = e.clientY - current.offsetTop + window.scrollY;
+
+            if (x > current.clientWidth + buffer || x < -buffer) return;
+            if ( y > current.clientHeight + buffer || y < -buffer) return;
+
+            current.style.backgroundImage = `radial-gradient(circle at ${x}px ${y}px, rgb(255, 144, 1), rgba(255, 179, 0, 0) 20%)`
         }
        
         document.addEventListener("mousemove",hoverHandler)
@@ -53,11 +60,11 @@ export default function VerticalText() {
     }
 
     return (
-    <div className="grid">
-        <div ref={top} className="md:flex text-8xl leading-[80%] gap-4 hidden col-start-1 row-start-1 z-[1]">
+    <div className="hidden md:grid">
+        <div ref={top} className="flex text-8xl leading-[80%] gap-4 col-start-1 row-start-1 z-[1]">
             {generateTextElements("text-accent-red")}
         </div>
-        <div ref={bottom} className="md:flex text-[104px] leading-[74%] gap-3 hidden brightness-75 bg-clip-text col-start-1 row-start-1 translate-x-[-2px]">
+        <div ref={bottom} className="flex text-[104px] leading-[74%] gap-3 brightness-75 bg-clip-text col-start-1 row-start-1 translate-x-[-2px]">
             {generateTextElements("text-transparent")}
         </div>
     </div>
