@@ -9,7 +9,7 @@ export default function Skills() {
                 alt="Misty fog image"
                 width={1080}
                 height={400}
-                className=" absolute w-[200vw] md:h-[100vw] md:max-h-[100vw] h-[200dvh] max-h-[200dvh] max-w-[200vw] mt-[-10rem] translate-x-[-25%] translate-y-[-25%] z-0 pointer-events-none"
+                className="absolute w-[200vw] md:h-[100vw] md:max-h-[100vw] h-[200dvh] max-h-[200dvh] max-w-[200vw] mt-[-10rem] translate-x-[-25%] translate-y-[-25%] z-0 pointer-events-none"
                 style={{
                     maskImage: "linear-gradient(to bottom, rgba(1,1,1,0) 25%, rgba(1,1,1,0.1) 50%, rgba(1,1,1,0.3))"
                 }}
@@ -24,7 +24,7 @@ export default function Skills() {
                     maskImage: "linear-gradient(to bottom, rgba(1,1,1,0) 25%, rgba(1,1,1,0.1) 50%, rgba(1,1,1,0.15))"
                 }}
             /> 
-            <h1>Test</h1>
+            <div>Test</div>
         </div>
     )
 }

@@ -4,6 +4,7 @@
 
 .stagger1 {
     animation-delay: 1s;
+    scale: var(--scale) 1 1;
 }
 
 .stagger2 {

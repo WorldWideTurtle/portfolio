@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss'
+import plugin from 'tailwindcss'
 
 export default {
   content: [
@@ -13,7 +14,9 @@ export default {
       "accent-red": "#EF0000",
       "accent-jade": "#6ED754",
       "transparent": "transparent"
-    }
+    },
   },
-  plugins: [],
+  plugins: [
+
+  ]
 } satisfies Config

@@ -1,6 +1,6 @@
 'use client'
 
-import { MutableRefObject, useEffect, useRef } from "react"
+import { MouseEvent, MutableRefObject, useEffect, useRef } from "react"
 
 const accentText = ["Full", "Stack"]
 
@@ -9,33 +9,42 @@ export default function VerticalText() {
     let bottom : MutableRefObject<HTMLDivElement | null> = useRef(null)
 
     useEffect(()=>{
-        if (top.current && bottom.current) {
-            let topCharacter = top.current.querySelectorAll(".child");
-            let bottomCharacter = bottom.current.querySelectorAll(".child");
-            topCharacter.forEach((e,i)=>{
-                let div = e as HTMLDivElement;
-                setTimeout(()=>{
-                    div.style.transition = "margin-top 1s ease";
-                    div.style.marginTop = "0"
-                },i*40)
-            })
-            bottomCharacter.forEach((e,i)=>{
-                let div = e as HTMLDivElement;
-                setTimeout(()=>{
-                    div.style.transition = "margin-top 1s ease";
-                    div.style.marginTop = "0"
-                },i*40)
-            })
+        if (top.current === null || bottom.current === null) return;
+
+        let topCharacter = top.current.querySelectorAll(".child");
+        let bottomCharacter = bottom.current.querySelectorAll(".child");
+
+        let lambda = (e : Element,i : number) => {
+            let div = e as HTMLDivElement;
+            setTimeout(()=>{
+                div.style.transition = "margin-top 1s ease";
+                div.style.marginTop = "0"
+            },i*40)
         }
+        topCharacter.forEach(lambda)
+        bottomCharacter.forEach(lambda)
+
+        let hoverHandler = (e : globalThis.MouseEvent) => {
+            if (bottom.current === null) return;
+
+            let x = e.clientX - bottom.current.offsetLeft;
+            let y = e.clientY - bottom.current.offsetTop;
+
+            bottom.current.style.backgroundImage = `radial-gradient(circle at ${x}px ${y}px, rgb(255, 144, 1), rgba(255, 179, 0, 0) 20%)`
+        }
+       
+        document.addEventListener("mousemove",hoverHandler)
+
+        return () => document.removeEventListener("mousemove",hoverHandler)
     }, [])
 
-    function generateTextElements() {
-        return accentText.map((e,i)=>{
+    function generateTextElements(classes : string = "") {
+        return accentText.map((text,textIndex)=>{
             return (
-                <div className={i > 0 ? " mt-40" : ""}>
+                <div key={"text" + textIndex} className={textIndex > 0 ? " mt-40" : ""}>
                     {
-                        Array.from(e).map(char=>(
-                            <div className="child mt-4 text-transparent">{char}</div>
+                        Array.from(text).map((char,charIndex)=>(
+                            <div key={text + "_" + charIndex} className={"child mt-4 " + classes}>{char}</div>
                         ))
                     }
                 </div>
@@ -45,11 +54,11 @@ export default function VerticalText() {
 
     return (
     <div className="grid">
-        <div ref={top} className="md:flex text-8xl leading-[80%] gap-4 hidden bg-accent-red bg-clip-text col-start-1 row-start-1 z-[1]">
-            {generateTextElements()}
+        <div ref={top} className="md:flex text-8xl leading-[80%] gap-4 hidden col-start-1 row-start-1 z-[1]">
+            {generateTextElements("text-accent-red")}
         </div>
-        <div ref={bottom} className="md:flex text-[104px] leading-[74%] gap-3 hidden brightness-75 bg-accent-red bg-clip-text col-start-1 row-start-1 translate-x-[-2px]">
-            {generateTextElements()}
+        <div ref={bottom} className="md:flex text-[104px] leading-[74%] gap-3 hidden brightness-75 bg-clip-text col-start-1 row-start-1 translate-x-[-2px]">
+            {generateTextElements("text-transparent")}
         </div>
     </div>
     )

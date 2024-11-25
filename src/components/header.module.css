@@ -1,0 +1,7 @@
+.base {
+    --stop: 0%;
+}
+
+.base:after {
+    background: radial-gradient(circle at center, rgb(219, 9, 9), rgba(219, 9, 9, 0) var(--stop));
+}
