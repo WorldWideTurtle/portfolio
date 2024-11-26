@@ -5,7 +5,7 @@ import ChainIcon from "@/icons/Chain.svg"
 import skillsConfig, { Skill } from "@/config/skills.config"
 import { MutableRefObject, useEffect, useRef } from "react"
 
-type SkillLanternProps = {
+interface SkillLanternProps {
     icon: string,
     skill: Skill
 }
@@ -21,39 +21,32 @@ export default function SkillLantern(props : SkillLanternProps) {
     useEffect(()=>{
         if (skillElement.current === null) return;
 
-        let isHovered = false;
         let hoverTimeOut : NodeJS.Timeout | null = null;
-        let hoverHandler = () => {
-            if (isHovered) return;
-            isHovered = true;
-            tiltLantern();
-        }
 
         let tiltLantern = () => {
             if (skillElement.current === null) return;
             let side = Math.random() > 0.5 ? 1 : -1
             let num = Math.random() * skillsConfig.maxTilt;
             skillElement.current.style.rotate = (num * side).toString() + "deg"
+            invokeReset()
+        }
+
+        let invokeReset = () => {
+            if (hoverTimeOut) clearTimeout(hoverTimeOut);
             hoverTimeOut = setTimeout(()=>{
                 if (skillElement.current === null) return;
 
-                skillElement.current.style.rotate = "0deg"
+                skillElement.current.style.rotate = "0deg";
             }, skillsConfig.tiltDuration + 50)
         }
 
-        let hoverEndHandler = () => {
-            isHovered = false;
-        }
-
-        skillElement.current.addEventListener("mouseenter",hoverHandler)
-        skillElement.current.addEventListener("mouseleave",hoverEndHandler)
+        skillElement.current.addEventListener("mouseenter",tiltLantern)
         skillElement.current.addEventListener("click",tiltLantern)
 
         return () => {
             if (skillElement.current === null) return;
 
-            skillElement.current.removeEventListener("mouseenter",hoverHandler)
-            skillElement.current.removeEventListener("mouseleave",hoverEndHandler)
+            skillElement.current.removeEventListener("mouseleave",tiltLantern)
             skillElement.current.removeEventListener("click",tiltLantern)
             if (hoverTimeOut !== null) clearTimeout(hoverTimeOut)
         }

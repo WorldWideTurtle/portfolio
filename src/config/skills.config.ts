@@ -1,4 +1,4 @@
-type Skill = {
+interface Skill {
     skillName: string,
     iconName: string,
     iconColor: string,
@@ -7,7 +7,7 @@ type Skill = {
 
 export type {Skill}
 
-type SkillsConfig = {
+interface SkillsConfig {
     baseIconSize: number,
     baseBackgroundSize: number,
     backgroundSizeOffset: number,
@@ -15,7 +15,7 @@ type SkillsConfig = {
     tiltDuration: number,
     tiltEasing: string,
     skills: Array<Skill>
-}
+} 
 
 const skillsConfig : SkillsConfig = {
     baseIconSize: 3,
@@ -112,7 +112,7 @@ const skillsConfig : SkillsConfig = {
         {
             skillName: "Obsidian",
             iconName: "obsidian",
-            iconColor: "#ffffff",
+            iconColor: "#6838C6",
             knowledge: 4
         }
     ]

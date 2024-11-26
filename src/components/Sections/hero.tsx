@@ -8,7 +8,7 @@ const fullConfig = resolveConfig(tailwindConfig)
 
 export default function Hero() {
     return (
-        <div className="md:grid md:grid-cols-2 md:mt-16 mt-8 min-h-[85dvh] flex flex-col gap-10 md:gap-0 overflow-x-hidden">
+        <div className="md:grid md:grid-cols-2 md:mt-8 min-h-[85dvh] flex flex-col gap-10 md:gap-0 overflow-x-hidden">
             <div className="md:flex md:gap-6 md:pl-[30%] md:pr-0 mx-auto max-w-[80vw] w-auto"> 
                 <VerticalText />
                 <div className="mt-12 md:text-left text-center max-w-[600px]">
@@ -28,8 +28,8 @@ export default function Hero() {
                 <Image 
                     src={"/IMGTop.webp"}
                     alt='Ink mountain'
-                    width={600}
-                    height={600}
+                    width={400}
+                    height={400}
                     className={`[--scale:-1] md:[--scale:1] md:col-start-1 md:row-start-1 md:w-[60%] md:mb-[16vw] max-w-[100vw] md:place-self-auto place-self-center ${classes.floating} ${classes.stagger1} pointer-events-none`}
                     priority={true}
                 />
@@ -44,8 +44,8 @@ export default function Hero() {
                 <Image 
                     src={"/IMGBase.webp"}
                     alt='Ink mountain'
-                    width={600}
-                    height={600}
+                    width={400}
+                    height={400}
                     className={`md:col-start-1 md:row-start-1 md:w-[60%] max-w-[100vw] md:place-self-auto place-self-center ${classes.floating} ${classes.stagger3} pointer-events-none`}
                     priority={true}
                 />
