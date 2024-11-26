@@ -10,6 +10,7 @@ export default {
     extend: {},
     colors: {
       "primary": "#0C0C0C",
+      "primary-light": "#111111",
       "accent-red": "#EF0000",
       "accent-jade": "#6ED754",
       "transparent": "transparent"

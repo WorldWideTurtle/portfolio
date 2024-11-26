@@ -1,4 +1,5 @@
 .floating {
+    --offset: -10px;
     animation: float 5s ease 0s infinite;
 }
 
@@ -22,7 +23,7 @@
     }
 
     50% {
-        transform: translateY(-10px);
+        transform: translateY(var(--offset));
     }
 
     100% {

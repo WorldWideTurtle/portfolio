@@ -25,7 +25,7 @@ export default async function RootLayout({
 					alt="Radial gradient from the top right corner towards the center of the page, fading from red to transparent."
 					width={400}
 					height={400}
-					className="absolute right-0 top-0 w-[30vmax] -z-50"
+					className="absolute right-[-2%] top-[-2%] w-[30vmax] -z-50"
 				/>
 				{/* <div className="absolute h-[200dvh] w-full z-[-1]" style={{
 					background: "radial-gradient(circle at left center, rgba(68, 4, 6, 0.6) 14%, rgba(44, 1, 2, 0) 50%)"
