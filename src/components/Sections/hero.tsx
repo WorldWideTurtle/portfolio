@@ -18,9 +18,7 @@ export default function Hero() {
                             backgroundClip: "text"
                         }}>
                         <span className="text-transparent">Hi, I'm Sebastian, a full-stack web developer who adds a touch of the </span>
-                        <span className="text-accent-red" style={{
-                            textShadow: "0 0 8px " + fullConfig.theme.colors['accent-red']
-                        }}>mystical</span>
+                        <span className="text-accent-red text-shadow-red" >mystical</span>
                     </p>
                 </div>
             </div>

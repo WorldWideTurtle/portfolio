@@ -15,8 +15,17 @@ export default {
       "accent-jade": "#6ED754",
       "transparent": "transparent"
     },
+    textShadow: () => ({
+      "red": "0 0 8px theme(colors.accent-red)"
+    })
   },
   plugins: [
-
+    function ({ addUtilities, theme }) {
+      const textShadows = theme('textShadow');
+      const textShadowUtilities = Object.keys(textShadows).map((key) => ({
+        [`.text-shadow-${key}`]: { textShadow: textShadows[key] },
+      }));
+      addUtilities(textShadowUtilities, ['responsive', 'hover']);
+    },
   ]
 } satisfies Config
