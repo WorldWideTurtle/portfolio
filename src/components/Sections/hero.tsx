@@ -3,6 +3,7 @@ import tailwindConfig from '@/../tailwind.config.ts'
 import Image from 'next/image'
 import classes from './hero.module.css'
 import VerticalText from './verticalText'
+import { images } from '@/config/image.config'
 
 const fullConfig = resolveConfig(tailwindConfig)
 
@@ -21,7 +22,7 @@ export default function Hero() {
             </div>
             <div className='min-h-[400px] md:pr-[10%] grid md:grid-cols-1 grid-cols-2 grid-rows-1 place-items-end md:gap-0 gap-[70%] xl:place-self-auto place-self-center md:translate-y-0 translate-y-[-50px]'>
                 <Image 
-                    src={"/IMGTop.webp"}
+                    src={images.HeroImageTop}
                     alt='Ink mountain'
                     width={400}
                     height={400}
@@ -29,7 +30,7 @@ export default function Hero() {
                     priority={true}
                 />
                 <Image 
-                    src={"/IMGLeft.webp"}
+                    src={images.HeroImageLeft}
                     alt='Ink mountain'
                     width={400}
                     height={400}
@@ -37,7 +38,7 @@ export default function Hero() {
                     priority={true}
                 />
                 <Image 
-                    src={"/IMGBase.webp"}
+                    src={images.HeroImageBottom}
                     alt='Ink mountain'
                     width={400}
                     height={400}

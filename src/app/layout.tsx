@@ -4,6 +4,7 @@ import Header from "../components/header";
 import "@/styles/globals.css";
 import { Metadata } from "next/types";
 import Image from "next/image";
+import { images } from "@/config/image.config";
 
 
 const edo = localFont({src: "./edosz.woff2"})
@@ -21,7 +22,7 @@ export default async function RootLayout({
 		<html className={`bg-primary-100 ${edo.className} overflow-x-hidden`}>
 			<body>
 				<Image 
-					src={"/gradient.webp"}
+					src={images.GradientBG}
 					alt="Radial gradient from the top right corner towards the center of the page, fading from red to transparent."
 					width={400}
 					height={400}

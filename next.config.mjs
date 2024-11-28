@@ -1,5 +1,16 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
+    images: {
+        remotePatterns: [
+            {
+                hostname: "utfs.io",
+                protocol: "https",
+                port: "",
+                pathname: "/f/GCKZPrRz1ClM*"
+            }
+        ]
+    },
     pageExtensions: ['ts', 'tsx'],
     webpack(config) {
         // Grab the existing rule that handles SVG imports
