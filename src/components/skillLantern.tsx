@@ -21,7 +21,7 @@ export default function SkillLantern(props : SkillLanternProps) {
     useEffect(()=>{
         if (skillElement.current === null) return;
 
-        let hoverTimeOut : NodeJS.Timeout | null = null;
+        let timeout : NodeJS.Timeout | null = null;
 
         let tiltLantern = () => {
             if (skillElement.current === null) return;
@@ -32,8 +32,8 @@ export default function SkillLantern(props : SkillLanternProps) {
         }
 
         let invokeReset = () => {
-            if (hoverTimeOut) clearTimeout(hoverTimeOut);
-            hoverTimeOut = setTimeout(()=>{
+            if (timeout) clearTimeout(timeout);
+            timeout = setTimeout(()=>{
                 if (skillElement.current === null) return;
 
                 skillElement.current.style.rotate = "0deg";
@@ -48,7 +48,7 @@ export default function SkillLantern(props : SkillLanternProps) {
 
             skillElement.current.removeEventListener("mouseleave",tiltLantern)
             skillElement.current.removeEventListener("click",tiltLantern)
-            if (hoverTimeOut !== null) clearTimeout(hoverTimeOut)
+            if (timeout !== null) clearTimeout(timeout)
         }
     })
 

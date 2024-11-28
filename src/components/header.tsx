@@ -5,14 +5,6 @@ import styles from "./header.module.css"
 import Link from "next/link"
 import headerConfig from "@/config/header.config"
 
-
-const links = [
-    ["about"],
-    ["projects"],
-    ["skills"],
-    ["contacts"]
-]
-
 export default function Header() {
     let navbar : MutableRefObject<HTMLHeadingElement | null> = useRef(null)
 

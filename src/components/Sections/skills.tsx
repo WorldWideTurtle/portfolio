@@ -5,13 +5,14 @@ import SkillLantern from "../skillLantern";
 
 
 export default function Skills() {
+    // Read icon file in sync since it's easier
+    // This page is compiled at build time so speed is not a concern
     function getSkillIcon(name : string) : string {
         return readFileSync(path.join(process.cwd(),"src/icons/skills/", name + ".svg"),{ encoding: 'utf8', flag: 'r' });
     }
 
     function generateSkillIcons() {
         let skills = skillsConfig.skills;
-        let baseIconSize = skillsConfig.baseIconSize;
 
         return (
         <>
@@ -27,8 +28,6 @@ export default function Skills() {
         </>
         )
     }
-
-    generateSkillIcons();
     
     return (
         <div>
@@ -36,7 +35,7 @@ export default function Skills() {
             <div className="px-8 pb-4 relative border-b-accent-red border-b-2">
                 <div className="max-w-text tracking-[0.075em] md:text-xl text-justify">
                     <span>Sebastian Eckhard (HE/HIM) - </span>
-                    <span className="text-white-600 font-math">I love building experiences that impress, not only visually, but also on a technical level. When I'm not working on my own projects, I like to take pictures or play games.</span>
+                    <span className="text-white-600 font-math">I love building experiences that impress, not only visually, but also on a technical level. When I'm not working on my own projects, I like to take pictures, read or play games.</span>
                 </div>
             </div>
             <div className="px-[5%] flex flex-wrap justify-between gap-8 pt-16 overflow-hidden">
