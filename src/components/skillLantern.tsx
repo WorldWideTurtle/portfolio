@@ -62,12 +62,12 @@ export default function SkillLantern(props : SkillLanternProps) {
                 <LanternIcon className="w-full col-start-1 row-start-1 opacity-70"/>
                 <div className="col-start-1 row-start-1 w-[85%] place-self-center z-10 translate-y-[5%]" dangerouslySetInnerHTML={{ __html: props.icon}}/>
                 <div className="absolute place-self-center z-[5]" style={{
-                    background: `radial-gradient(circle at center, ${skill.iconColor + "30"}, ${skill.iconColor + "00"} 70%)`,
+                    background: `radial-gradient(circle at center, ${skill.iconColor}30, ${skill.iconColor}00 70%)`,
                     width: (baseBackgroundSize + skill.knowledge / 2).toString() + "vmax",
                     height: (baseBackgroundSize + skill.knowledge / 2).toString() + "vmax"
                 }}/>
                 <div className="absolute place-self-center -z-10" style={{
-                    background: `radial-gradient(circle at center, ${skill.iconColor + "a0"}, ${skill.iconColor + "00"} 70%)`,
+                    background: `radial-gradient(circle at center, ${skill.iconColor}b0, ${skill.iconColor}00 70%)`,
                     width: (baseBackgroundSize + backgroundSizeOffset + skill.knowledge / 2).toString() + "vmax",
                     height: (baseBackgroundSize + backgroundSizeOffset + skill.knowledge / 2).toString() + "vmax"
                 }}/>
