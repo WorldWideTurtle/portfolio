@@ -7,7 +7,7 @@ const nextConfig = {
                 hostname: "utfs.io",
                 protocol: "https",
                 port: "",
-                pathname: "/f/GCKZPrRz1ClM*"
+                pathname: "/a/t5ea2sr3kd/**"
             }
         ]
     },

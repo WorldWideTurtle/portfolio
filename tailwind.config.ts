@@ -12,7 +12,7 @@ export default {
         "math": "math,ui-serif,serif"
       },
       maxWidth: {
-        "text": "600px"
+        "text": "800px"
       }
     },
     colors: {
