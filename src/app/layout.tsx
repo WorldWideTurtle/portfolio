@@ -6,7 +6,7 @@ import { Metadata } from "next/types";
 import Image from "next/image";
 
 
-const edo = localFont({src: "./edosz.ttf"})
+const edo = localFont({src: "./edosz.woff2"})
 
 export const metadata: Metadata = {
 	title: 'WorldWideDev',
@@ -18,7 +18,7 @@ export default async function RootLayout({
 } : {children: ReactElement}) {
 
 	return (
-		<html className={`bg-primary w-[100vw] ${edo.className} overflow-x-hidden`}>
+		<html className={`bg-primary-100 ${edo.className} overflow-x-hidden`}>
 			<body>
 				<Image 
 					src={"/gradient.webp"}

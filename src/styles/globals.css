@@ -3,6 +3,6 @@
 @tailwind utilities;
 
 * {
-    color: aliceblue;
+    color: theme(colors.white.900);
     box-sizing: border-box;
 }
