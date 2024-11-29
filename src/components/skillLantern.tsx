@@ -7,7 +7,8 @@ import classes from "./skillLantern.module.css"
 
 interface SkillLanternProps {
     icon: string,
-    skill: Skill
+    skill: Skill,
+    zIndex: number
 }
 
 export default function SkillLantern(props : SkillLanternProps) {
@@ -16,7 +17,10 @@ export default function SkillLantern(props : SkillLanternProps) {
     let backgroundSizeOffset = skillsConfig.backgroundSizeOffset;
 
     let skill = props.skill;
+    skill.knowledge = 1;
     let skillElement : MutableRefObject<HTMLDivElement | null> = useRef(null)
+    let lanternAndChain : MutableRefObject<HTMLDivElement | null> = useRef(null)
+    let observerBox : MutableRefObject<HTMLDivElement | null> = useRef(null)
 
     useEffect(()=>{
         if (skillElement.current === null) return;
@@ -43,39 +47,71 @@ export default function SkillLantern(props : SkillLanternProps) {
         skillElement.current.addEventListener("mouseenter",tiltLantern)
         skillElement.current.addEventListener("click",tiltLantern)
 
-        return () => {
-            if (skillElement.current === null) return;
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    if (lanternAndChain.current === null || observerBox.current === null) return;
+                    lanternAndChain.current.classList.add(classes.animate)
+                    observer.unobserve(observerBox.current);
+                }
+              },
+            {
+                root: null, // Observe relative to the viewport
+                threshold: 0.8, // Trigger when 10% of the element is visible
+            }
+        );
+        
+        if (observerBox.current) {
+            observer.observe(observerBox.current);
+        }
 
-            skillElement.current.removeEventListener("mouseleave",tiltLantern)
-            skillElement.current.removeEventListener("click",tiltLantern)
-            if (timeout !== null) clearTimeout(timeout)
+        if (lanternAndChain.current) {
+            lanternAndChain.current.style.animationDelay = (Math.random() * 200).toString() + "ms";
+        }
+
+        return () => {
+            if (skillElement.current) {
+                skillElement.current.removeEventListener("mouseleave",tiltLantern)
+                skillElement.current.removeEventListener("click",tiltLantern)
+                if (timeout !== null) clearTimeout(timeout)
+            }
+
+            if (observerBox.current) {
+                observer.unobserve(observerBox.current);
+            }
+
         }
     })
 
     return (
-        <>
-            <div ref={skillElement} className="origin-top grid relative transition-[rotate]" style={{
-                width: (baseIconSize + skill.knowledge / 2).toString() + "vmax",
+        <div ref={observerBox} className="relative w-fit isolate" style={{
+                    zIndex: props.zIndex
+        }}>
+            <div ref={lanternAndChain} className="relative translate-y-[-100dvh]" style={{
+                width: (baseIconSize + skill.knowledge / 2).toString() + "vmax"
+            }}>
+                <div ref={skillElement} className="origin-top transition-[rotate] grid" style={{
                 transitionDuration: skillsConfig.tiltDuration.toString() + "ms",
                 transitionTimingFunction: skillsConfig.tiltEasing
-            }}>
-                <LanternIcon className="w-full col-start-1 row-start-1 opacity-70"/>
-                <div className="col-start-1 row-start-1 w-[85%] place-self-center z-10 translate-y-[5%]" dangerouslySetInnerHTML={{ __html: props.icon}}/>
-                <div className="absolute place-self-center z-[5]" style={{
-                    background: `radial-gradient(circle at center, ${skill.iconColor}30, ${skill.iconColor}00 70%)`,
-                    width: (baseBackgroundSize + skill.knowledge / 2).toString() + "vmax",
-                    height: (baseBackgroundSize + skill.knowledge / 2).toString() + "vmax"
-                }}/>
-                <div className="absolute place-self-center -z-10" style={{
-                    background: `radial-gradient(circle at center, ${skill.iconColor}b0, ${skill.iconColor}00 70%)`,
-                    width: (baseBackgroundSize + backgroundSizeOffset + skill.knowledge / 2).toString() + "vmax",
-                    height: (baseBackgroundSize + backgroundSizeOffset + skill.knowledge / 2).toString() + "vmax"
-                }}/>
+                }}>
+                    <LanternIcon className="w-full col-start-1 row-start-1 opacity-70"/>
+                    <div className="col-start-1 row-start-1 w-[85%] place-self-center z-10 translate-y-[5%]" dangerouslySetInnerHTML={{ __html: props.icon}}/>
+                    <div className="absolute place-self-center z-[5]" style={{
+                        background: `radial-gradient(circle at center, ${skill.iconColor}30, ${skill.iconColor}00 70%)`,
+                        width: (baseBackgroundSize + skill.knowledge / 2).toString() + "vmax",
+                        height: (baseBackgroundSize + skill.knowledge / 2).toString() + "vmax"
+                    }}/>
+                    <div className="absolute place-self-center -z-10" style={{
+                        background: `radial-gradient(circle at center, ${skill.iconColor}b0, ${skill.iconColor}00 70%)`,
+                        width: (baseBackgroundSize + backgroundSizeOffset + skill.knowledge / 2).toString() + "vmax",
+                        height: (baseBackgroundSize + backgroundSizeOffset + skill.knowledge / 2).toString() + "vmax"
+                    }}/>
+                </div>
+                <div className="absolute top-[5%] w-[20%] h-[100dvh] translate-y-[-100%] left-[50%] z-[4] translate-x-[-50%] grid grid-rows-[1fr_auto]">
+                    <div className={"bg-bottom bg-contain " + classes.top}></div>
+                    <div className={"aspect-[22/35] bg-cover translate-y-[-1px] " + classes.bottom}></div>
+                </div>
             </div>
-            <div className="absolute top-[5%] w-[20%] h-[100dvh] translate-y-[-100%] left-[50%] z-[4] translate-x-[-50%] grid grid-rows-[1fr_auto]">
-                <div className={"bg-bottom bg-contain " + classes.top}></div>
-                <div className={"aspect-[22/35] bg-cover translate-y-[-1px] " + classes.bottom}></div>
-            </div>
-        </>
+        </div>
     )
 }
