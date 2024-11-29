@@ -6,6 +6,7 @@ import Link from "next/link"
 import PlayIcon from "@/icons/play.svg"
 import GitHubIcon from "@/icons/github.svg"
 import { images } from "@/config/image.config"
+import SmallProject from "../smallProject"
 
 const fullConfig = resolveConfig(tailwindConfig)
 
@@ -32,6 +33,7 @@ export default function Projects() {
                             width={400}
                             height={300}
                             className="w-auto rounded-xl outline-1 outline-accent-jade outline scale-105"
+                            draggable="false"
                         />
                         <Image 
                             src={"/solver-small.webp"}
@@ -39,6 +41,7 @@ export default function Projects() {
                             width={400}
                             height={300}
                             className="w-auto rounded-xl"
+                            draggable="false"
                         />
                         <Image 
                             src={"/solver-small.webp"}
@@ -46,31 +49,13 @@ export default function Projects() {
                             width={400}
                             height={300}
                             className="w-auto rounded-xl"
+                            draggable="false"
                         />
                     </div>
                 </div>
             </div>
             <div className="flex-1 px-4 flex flex-col">
-                <div className="flex flex-col items-center">
-                    <Image 
-                        src={"/solver-large.webp"}
-                        alt="Image of my sudoku solver showing both a dark and light mode view"
-                        width={1600}
-                        height={900}
-                        className="w-[90%] md:w-auto max-h-[50dhv]"
-                    />
-                    <h3 className="-mt-5 text-center text-3xl">Sudoku-Solver</h3>
-                </div>
-                <div className="font-math mt-3">
-                    <p className="text-justify text-white-700">A high-performance sudoku solver written using JS, CSS and HTML.</p>
-                    <ul className="mt-2 flex flex-col gap-1 list-disc">
-                        <li className="ml-4 pl-2 text-white-700">Incredibly fast due to bitwise operations and typed arrays</li>
-                        <li className="ml-4 pl-2 text-white-700">Multithreaded solving of lists</li>
-                        <li className="ml-4 pl-2 text-white-700">SPA with routing</li>
-                    </ul>
-                    <div className="mt-4"></div>
-                    <Link href={"/"} className="text-accent-jade underline">Learn more</Link>
-                </div>
+                <SmallProject name="123" />
                 <div className="flex h-10 flex-row-reverse absolute right-2 bottom-4">
                     <PlayIcon className="stroke-accent-jade h-full"/>
                     <GitHubIcon className="stroke-accent-jade h-full"/>
