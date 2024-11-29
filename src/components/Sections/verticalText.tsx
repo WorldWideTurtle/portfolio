@@ -1,6 +1,6 @@
 'use client'
 
-import { MouseEvent, MutableRefObject, useEffect, useRef } from "react"
+import { MutableRefObject, useEffect, useRef } from "react"
 
 const accentText = ["Full", "Stack"]
 

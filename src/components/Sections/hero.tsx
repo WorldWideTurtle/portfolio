@@ -1,11 +1,7 @@
-import resolveConfig from 'tailwindcss/resolveConfig'
-import tailwindConfig from '@/../tailwind.config.ts'
 import Image from 'next/image'
 import classes from './hero.module.css'
 import VerticalText from './verticalText'
 import { images } from '@/config/image.config'
-
-const fullConfig = resolveConfig(tailwindConfig)
 
 export default function Hero() {
     return (
