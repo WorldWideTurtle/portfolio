@@ -2,20 +2,22 @@ import Image from "next/image"
 import Link from "next/link"
 
 interface SmallProjectProps {
-    name: string
+    name?: string
 }
 
 export default function SmallProject(props : SmallProjectProps) {
     return (
         <>
-            <div className="flex flex-col items-center">
-                <Image 
+            <div className="flex flex-col items-center relative">
+                <img 
                     src={"/solver-large.webp"}
                     alt="Image of my sudoku solver showing both a dark and light mode view"
                     width={1600}
                     height={900}
-                    className="w-[90%] md:w-auto max-h-[50dhv]"
+                    className="w-full aspect-video"
                 />
+                <div className="absolute top-[50%] translate-y-[-70%] font-mono right-0 size-8 bg-primary-200 rounded-l-xl text-2xl text-center">{">"}</div>
+                <div className="absolute top-[50%] translate-y-[-70%] font-mono left-0 size-8 bg-primary-200 rounded-r-xl text-2xl text-center">{"<"}</div>
                 <h3 className="-mt-5 text-center text-3xl">Sudoku-Solver</h3>
             </div>
             <div className="font-math mt-3">
