@@ -19,7 +19,6 @@ export default function Projects() {
     ]
 
     let projects : MutableRefObject<HTMLDivElement | null>[] = projectsConfig.projects.map(e=>useRef(null));
-    const removeClasses = document.createElement("div").classList.remove
 
     function slideBy(x : number) {
         setState({
@@ -36,7 +35,7 @@ export default function Projects() {
         for (let i = state.index - 1; i <= state.index + 1; i++) {
             const project = projects[getWrappedIndex(i)].current;
             if (project) {
-                removeClasses.apply(project.classList,allClasses)
+                project.classList.remove.apply(project.classList,allClasses)
                 project.classList.add(allClasses[1 + (i - state.index)])
                 if (state.action === 0 || (i !== state.index && state.action !== state.index - i)) {
                     project.style.transitionDuration = "0ms"
