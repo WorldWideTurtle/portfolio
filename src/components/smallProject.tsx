@@ -31,6 +31,7 @@ const SmallProject = forwardRef<HTMLDivElement, SmallProjectProps>((props, ref) 
                 src={project.image.src}
                 alt={project.image.alt}
                 className="aspect-video p-2 pb-0"
+                loading="lazy"
             />
             <div className="font-math px-4 md:text-lg">
                 <h3 className="text-center text-3xl sm:text-4xl lg:text-5xl font-edo [--offset:1px] md:[--offset:2px] translate-y-[-50%]" style={{
