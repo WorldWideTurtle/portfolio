@@ -28,7 +28,7 @@ export default function SmallProject(props : SmallProjectProps) {
                     <li className="ml-4 pl-2 text-white-700">SPA with routing</li>
                 </ul>
                 <div className="mt-4"></div>
-                <Link href={"/"} className="text-accent-jade underline">Learn more</Link>
+                <Link href={"/"} aria-label="Learn more about sudoku solver" className="text-accent-jade underline">Learn more</Link>
             </div>
         </>
     )

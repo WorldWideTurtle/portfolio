@@ -10,7 +10,7 @@ import { images } from "@/config/image.config";
 const edo = localFont({src: "./edosz.woff2"})
 
 export const metadata: Metadata = {
-	title: 'WorldWideDev',
+	title: 'WorldWideTurtle - Portfolio',
 	description: 'Portfolio',
   }
 
@@ -19,7 +19,7 @@ export default async function RootLayout({
 } : {children: ReactElement}) {
 
 	return (
-		<html className={`bg-primary-100 ${edo.className} overflow-x-hidden`}>
+		<html className={`bg-primary-100 ${edo.className} overflow-x-hidden`} lang="en-US">
 			<body>
 				<Image 
 					src={images.GradientBG}
@@ -27,6 +27,7 @@ export default async function RootLayout({
 					width={400}
 					height={400}
 					className="absolute right-0 top-0 w-[30vmax] -z-50"
+					aria-hidden
 				/>
 				{/* <div className="absolute h-[200dvh] w-full z-[-1]" style={{
 					background: "radial-gradient(circle at left center, rgba(68, 4, 6, 0.6) 14%, rgba(44, 1, 2, 0) 50%)"

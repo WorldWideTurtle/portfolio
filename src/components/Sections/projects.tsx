@@ -32,8 +32,8 @@ export default function Projects() {
             <div className="flex-1 px-4 flex flex-col">
                 <SmallProject />
                 <div className="flex h-10 flex-row-reverse absolute right-2 bottom-4">
-                    <Link href={"https://www.f0und.de"}><PlayIcon className="stroke-accent-jade h-full"/></Link>
-                    <Link href={"/"}><GitHubIcon className="stroke-accent-jade h-full"/></Link>
+                    <Link role='button' aria-label='Live preview' href={"https://www.f0und.de"}><PlayIcon className="stroke-accent-jade h-full"/></Link>
+                    <Link role='button' aria-label='Github repository' href={"/"}><GitHubIcon className="stroke-accent-jade h-full"/></Link>
                 </div>
                 <img 
 					src={images.GradientBG}
@@ -41,6 +41,7 @@ export default function Projects() {
 					width={400}
 					height={400}
 					className="absolute left-0 bottom-0 w-full -scale-100 -z-10 opacity-50 max-w-[50vmax]"
+                    aria-hidden
 				/>
                 <img 
 					src={images.GradientBG}
@@ -48,6 +49,7 @@ export default function Projects() {
 					width={400}
 					height={400}
 					className="absolute top-0 right-0 w-full -z-10 opacity-25 max-w-[50vmax]"
+                    aria-hidden
 				/>
             </div>
         </div>
