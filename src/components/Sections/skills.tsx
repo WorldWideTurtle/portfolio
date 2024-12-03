@@ -32,7 +32,10 @@ export default async function Skills() {
         <>
             {skills.map((e,i)=>{
                 return (
-                    <SkillLantern key={e.skillName} icon={iconTable.get(e.iconName) ?? ""} skill={e} zIndex={skills.length + 5 - i}/>
+                    <SkillLantern style={{
+                        marginTop: `${Math.random() * 3}vmax`,
+                        marginInline: `${Math.random() * 3 + 1}vmax`
+                    }} key={e.skillName} icon={iconTable.get(e.iconName) ?? ""} skill={e} zIndex={skills.length + 5 - i}/>
                 ) 
             })}
         </>
@@ -40,7 +43,7 @@ export default async function Skills() {
     }
     
     return (
-        <div className="px-[5%] flex flex-wrap justify-between gap-8 pt-16 pb-12 overflow-hidden relative mt-16">
+        <div className="px-[5%] flex flex-wrap justify-between pt-16 pb-12 overflow-hidden relative mt-16">
             <h1 id="skills" className="sr-only translate-y-[-8rem]">Skills</h1>
             <div className="absolute w-full h-16 bg-gradient-to-b from-primary-100 to-transparent top-0 z-50"></div>
             {generateSkillIcons()}
