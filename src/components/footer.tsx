@@ -4,7 +4,7 @@ import StrokeIcon from "@/icons/Footer-stroke.svg"
 
 export default function Footer() {
     return (
-        <footer className="overflow-x-clip">
+        <footer role="contentinfo" className="overflow-x-clip">
             <StrokeIcon className="w-full min-w-[1200px] h-auto fill-primary-200"/>
             <div className="bg-gradient-to-b from-primary-200 to-primary-200 via-primary-300 pb-2">
                 <div className="w-fit m-auto">

@@ -1,3 +1,4 @@
+import { images } from "./image.config";
 import { imageDescription } from "./types.config";
 
 interface Project {
@@ -30,7 +31,7 @@ const projectsConfig : ProjectsConfig = {
                 project: "/sudoku-solver"
             },
             image: {
-                src: "/solver-large",
+                src: images.SolverContrast,
                 alt: "Image of my sudoku solver showing both a dark and light mode view"
             },
             text: {
@@ -49,7 +50,7 @@ const projectsConfig : ProjectsConfig = {
                 project: "/eva"
             },
             image: {
-                src: "/solver-large",
+                src: images.SolverContrast,
                 alt: "Image of my sudoku solver showing both a dark and light mode view"
             },
             text: {
@@ -69,7 +70,7 @@ const projectsConfig : ProjectsConfig = {
                 project: "/sudoku-solver"
             },
             image: {
-                src: "/solver-large",
+                src: images.SolverContrast,
                 alt: "Image of my sudoku solver showing both a dark and light mode view"
             },
             text: {
@@ -89,7 +90,7 @@ const projectsConfig : ProjectsConfig = {
                 project: "/sudoku-solver"
             },
             image: {
-                src: "/solver-large",
+                src: images.SolverContrast,
                 alt: "Image of my sudoku solver showing both a dark and light mode view"
             },
             text: {

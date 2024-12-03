@@ -28,7 +28,7 @@ const SmallProject = forwardRef<HTMLDivElement, SmallProjectProps>((props, ref) 
             background: `linear-gradient(${cardBG}, ${cardBG}) 0% 0% / auto content-box content-box, conic-gradient(from .375turn, transparent, ${accentRed},transparent, ${accentRed}, transparent) 0% 0% / auto border-box border-box`
         }}>
             <img 
-                src={`${project.image.src}.webp`}
+                src={project.image.src}
                 alt={project.image.alt}
                 className="aspect-video p-2 pb-0"
             />
