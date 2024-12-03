@@ -43,7 +43,7 @@ const SmallProject = forwardRef<HTMLDivElement, SmallProjectProps>((props, ref) 
                     ))}
                 </ul>
                 <div className="mt-4"></div>
-                <Link href={project.links.project} aria-label={`Learn more about ${project.name}`} className="text-accent-jade underline">Learn more</Link>
+                <Link href={"/projects/" + project.links.project} aria-label={`Learn more about ${project.name}`} className="text-accent-jade underline">Learn more</Link>
             </div>
             <nav className="flex h-10 flex-row-reverse mb-4 mr-2">
                 {project.links.demo ? <Link role='button' aria-label='Live preview' href={project.links.demo}><PlayIcon className="stroke-accent-jade h-full"/></Link> : ""}
