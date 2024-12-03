@@ -1,35 +1,59 @@
-import Image from "next/image"
 import Link from "next/link"
+import GitHubIcon from "@/icons/github.svg"
+import PlayIcon from "@/icons/play.svg"
+import { images } from "@/config/image.config"
+import classNames from "classnames"
+import { forwardRef } from "react"
+import { Project } from "@/config/projects.config"
 
 interface SmallProjectProps {
-    name?: string
+    project: Project
+    className?: string
 }
 
-export default function SmallProject(props : SmallProjectProps) {
+const SmallProject = forwardRef<HTMLDivElement, SmallProjectProps>((props, ref) => {
+    const project = props.project;
     return (
-        <>
-            <div className="flex flex-col items-center relative">
-                <img 
-                    src={"/solver-large.webp"}
-                    alt="Image of my sudoku solver showing both a dark and light mode view"
-                    width={1600}
-                    height={900}
-                    className="w-full aspect-video"
-                />
-                <div className="absolute top-[50%] translate-y-[-70%] font-mono right-0 size-8 bg-primary-200 rounded-l-xl text-2xl text-center">{">"}</div>
-                <div className="absolute top-[50%] translate-y-[-70%] font-mono left-0 size-8 bg-primary-200 rounded-r-xl text-2xl text-center">{"<"}</div>
-                <h3 className="-mt-5 text-center text-3xl">Sudoku-Solver</h3>
-            </div>
-            <div className="font-math mt-3">
-                <p className="text-justify text-white-700">A high-performance sudoku solver written using JS, CSS and HTML.</p>
-                <ul className="mt-2 flex flex-col gap-1 list-disc">
-                    <li className="ml-4 pl-2 text-white-700">Incredibly fast due to bitwise operations and typed arrays</li>
-                    <li className="ml-4 pl-2 text-white-700">Multithreaded solving of lists</li>
-                    <li className="ml-4 pl-2 text-white-700">SPA with routing</li>
+        <div ref={ref} className={classNames("grid relative h-full grid-rows-[auto_1fr_auto] bg-primary-200 rounded-2xl isolate overflow-hidden",props.className)}>
+            <img 
+                src={`${project.image.src}.webp`}
+                alt={project.image.alt}
+                className="aspect-video p-2"
+            />
+            <div className="font-math mt-3 p-4 md:text-lg">
+                <h3 className="text-center text-3xl lg:text-5xl font-edo -mt-12 lg:-mt-14" style={{
+                    textShadow: "0px 2px 0px red"
+                }}>{project.name}</h3>
+                <p className="text-justify text-white-700 mt-4" dangerouslySetInnerHTML={{__html:project.text.short}}></p>
+                <ul aria-label={`Key points about ${project.name}`} className="mt-2 flex flex-col gap-1 list-disc">
+                    {project.text.keyPoints.map((e,i)=>(
+                        <li key={i} className="ml-4 pl-2 text-white-700">{e}</li>
+                    ))}
                 </ul>
                 <div className="mt-4"></div>
-                <Link href={"/"} aria-label="Learn more about sudoku solver" className="text-accent-jade underline">Learn more</Link>
+                <Link href={project.links.project} aria-label={`Learn more about ${project.name}`} className="text-accent-jade underline">Learn more</Link>
             </div>
-        </>
+            <nav className="flex h-10 flex-row-reverse mb-4 mr-2">
+                {project.links.demo ? <Link role='button' aria-label='Live preview' href={project.links.demo}><PlayIcon className="stroke-accent-jade h-full"/></Link> : ""}
+                <Link role='button' aria-label='Github repository' href={project.links.github}><GitHubIcon className="stroke-accent-jade h-full"/></Link>
+            </nav>
+            <img 
+                src={images.GradientBG}
+                alt=""
+                className="absolute left-0 bottom-0 w-full -scale-100 -z-10 opacity-50 max-w-[50vmax]"
+                aria-hidden
+                draggable={false}
+            />
+            <img 
+                src={images.GradientBG}
+                alt=""
+                className="absolute top-0 right-0 w-full -z-10 opacity-25 max-w-[50vmax]"
+                aria-hidden
+                draggable={false}
+                
+            />
+        </div>
     )
-}
+})
+
+export default SmallProject

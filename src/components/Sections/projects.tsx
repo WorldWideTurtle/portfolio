@@ -1,57 +1,69 @@
-import resolveConfig from 'tailwindcss/resolveConfig'
-import tailwindConfig from '@/../tailwind.config.ts'
+'use client'
 
-import PlayIcon from "@/icons/play.svg"
-import GitHubIcon from "@/icons/github.svg"
-import { images } from "@/config/image.config"
+import ChevronIcon from "@/icons/chevron-Right.svg"
 import SmallProject from "../smallProject"
-import ProjectCarousel from "../projectCarousel"
+import { useRef, useState, MutableRefObject, useEffect, MouseEvent } from "react"
 import Link from "next/link"
-
-const fullConfig = resolveConfig(tailwindConfig)
+import projectsConfig from "@/config/projects.config"
 
 export default function Projects() {
+    let [state,setState] = useState({
+        index:0,
+        action:0
+    })
+
+    let allClasses = [
+        "-translate-x-[100vw]",
+        "translate-x-0",
+        "translate-x-[100vw]"
+    ]
+
+    let projects : MutableRefObject<HTMLDivElement | null>[] = projectsConfig.projects.map(e=>useRef(null));
+
+    function slideBy(x : number) {
+        setState({
+            index:getWrappedIndex(state.index + x),
+            action:x
+        })
+    }
+
+    function getWrappedIndex(x : number) {
+        return (x + projects.length) % projects.length;
+    }
+
+    useEffect(()=>{
+        for (let i = state.index - 1; i <= state.index + 1; i++) {
+            const project = projects[getWrappedIndex(i)].current;
+            if (project) {
+                project.classList.remove.apply(project.classList,allClasses)
+                project.classList.add(allClasses[1 + (i - state.index)])
+                if (state.action === 0 || (i !== state.index && state.action !== state.index - i)) {
+                    project.style.transitionDuration = "0ms"
+                } else {
+                    project.style.transitionDuration = "300ms"
+                } 
+            }
+        }
+    }, [state.index])
+
     return (
-        <div className="h-[92dvh] flex flex-col gap-6 bg-primary-200 py-4 rounded-2xl relative overflow-hidden isolate">
-            <div className="md:flex flex-col gap-2 items-center relative py-2 hidden">
-                <div className="h-2 flex gap-2 justify-between w-fit">
-                    <div className="h-full aspect-square rounded-full bg-accent-jade"></div>
-                    <div className="h-full aspect-square rounded-full bg-primary-600"></div>
-                    <div className="h-full aspect-square rounded-full bg-primary-600"></div>
-                    <div className="h-full aspect-square rounded-full bg-primary-600"></div>
-                    <div className="h-full aspect-square rounded-full bg-primary-600"></div>
-                    <div className="h-full aspect-square rounded-full bg-primary-600"></div>
-                </div>
-                <div className="relative">
-                    <div className="absolute w-full h-full top-0 pointer-events-none z-10" style={{
-                        background: `linear-gradient(to left, ${fullConfig.theme.colors.primary[200]}c0,${fullConfig.theme.colors.primary[200]}00 10%, ${fullConfig.theme.colors.primary[200]}00 90%,${fullConfig.theme.colors.primary[200]}c0)`
-                    }}></div>
-                    <ProjectCarousel />
+        <>
+            <h1 id="projects" className="sr-only translate-y-[-8rem]">Projects</h1>
+            <div className="h-full relative overflow-x-hidden">
+                <ChevronIcon role="button" onClick={() => slideBy(-1)} className="md:hidden absolute top-[50%] translate-y-[-50%] size-10 left-2 rotate-180 bg-primary-600 hover:bg-primary-400 cursor-pointer rounded-full z-50 pl-0.5" />
+                <ChevronIcon role="button" onClick={() => slideBy(1)} className="md:hidden absolute top-[50%] translate-y-[-50%] size-10 right-2 bg-primary-600 hover:bg-primary-400 cursor-pointer rounded-full z-50 pl-0.5" />
+                <div className="h-full md:px-4 px-8 grid md:grid-cols-2 md:grid-rows-1 xl:grid-cols-4 xl:grid-rows-1 gap-4 relative group">
+                    {projectsConfig.projects.map((e,i)=>(
+                        <SmallProject
+                            ref={projects[i]}
+                            className="transition-[transform_opacity] max-md:col-start-1 max-md:row-start-1 md:!translate-x-0 group-hover:opacity-70 hover:!opacity-100" 
+                            project={e}
+                            key={i}
+                        /> 
+                    ))}
                 </div>
             </div>
-            <div className="flex-1 px-4 flex flex-col">
-                <SmallProject />
-                <div className="flex h-10 flex-row-reverse absolute right-2 bottom-4">
-                    <Link role='button' aria-label='Live preview' href={"https://www.f0und.de"}><PlayIcon className="stroke-accent-jade h-full"/></Link>
-                    <Link role='button' aria-label='Github repository' href={"/"}><GitHubIcon className="stroke-accent-jade h-full"/></Link>
-                </div>
-                <img 
-					src={images.GradientBG}
-					alt="Radial gradient from the top right corner towards the center of the page, fading from red to transparent."
-					width={400}
-					height={400}
-					className="absolute left-0 bottom-0 w-full -scale-100 -z-10 opacity-50 max-w-[50vmax]"
-                    aria-hidden
-				/>
-                <img 
-					src={images.GradientBG}
-					alt="Radial gradient from the top right corner towards the center of the page, fading from red to transparent."
-					width={400}
-					height={400}
-					className="absolute top-0 right-0 w-full -z-10 opacity-25 max-w-[50vmax]"
-                    aria-hidden
-				/>
-            </div>
-        </div>
+            <Link href={"/projects"} className="m-auto block w-fit mt-4 underline text-xl">View other projects</Link>
+        </>
     )
 }
