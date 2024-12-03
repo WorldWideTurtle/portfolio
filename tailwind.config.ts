@@ -9,7 +9,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        "math": "math,ui-serif,serif"
+        "math": "math,ui-serif,serif",
+        "edo": "var(--font-edo)"
       },
       maxWidth: {
         "text": "800px"

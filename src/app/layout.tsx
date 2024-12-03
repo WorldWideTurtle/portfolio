@@ -3,11 +3,10 @@ import localFont from 'next/font/local'
 import Header from "../components/header";
 import "@/styles/globals.css";
 import { Metadata } from "next/types";
-import Image from "next/image";
 import { images } from "@/config/image.config";
 
 
-const edo = localFont({src: "./edosz.woff2"})
+const edo = localFont({src: "./edosz.woff2", variable: "--font-edo"})
 
 export const metadata: Metadata = {
 	title: 'WorldWideTurtle - Portfolio',
@@ -19,13 +18,11 @@ export default async function RootLayout({
 } : {children: ReactElement}) {
 
 	return (
-		<html className={`bg-primary-100 ${edo.className} overflow-x-hidden`} lang="en-US">
+		<html className={`bg-primary-100 ${edo.className} ${edo.variable} overflow-x-hidden`} lang="en-US">
 			<body>
-				<Image 
+				<img 
 					src={images.GradientBG}
 					alt="Radial gradient from the top right corner towards the center of the page, fading from red to transparent."
-					width={400}
-					height={400}
 					className="absolute right-0 top-0 w-[30vmax] -z-50"
 					aria-hidden
 				/>

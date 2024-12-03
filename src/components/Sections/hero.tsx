@@ -17,29 +17,20 @@ export default function Hero() {
                 </div>
             </div>
             <div className='min-h-[400px] md:pr-[10%] grid md:grid-cols-1 grid-cols-2 grid-rows-1 place-items-end md:gap-0 gap-[70%] xl:place-self-auto place-self-center md:translate-y-0 translate-y-[-50px]'>
-                <Image 
+                <img 
                     src={images.HeroImageTop}
                     alt='Ink mountain'
-                    width={400}
-                    height={400}
                     className={`[--scale:-1] md:[--scale:1] md:col-start-1 md:row-start-1 md:w-[60%] md:mb-[16vw] max-w-[100vw] md:place-self-auto place-self-center ${classes.floating} ${classes.stagger1} pointer-events-none`}
-                    priority={true}
                 />
-                <Image 
+                <img 
                     src={images.HeroImageLeft}
                     alt='Ink mountain'
-                    width={400}
-                    height={400}
                     className={`hidden md:block md:col-start-1 md:row-start-1 md:w-[60%] md:mb-[2vw] md:mr-[15vw] ${classes.floating} ${classes.stagger2} pointer-events-none`}
-                    priority={true}
                 />
-                <Image 
+                <img 
                     src={images.HeroImageBottom}
                     alt='Ink mountain'
-                    width={400}
-                    height={400}
                     className={`md:col-start-1 md:row-start-1 md:w-[60%] max-w-[100vw] md:place-self-auto place-self-center ${classes.floating} ${classes.stagger3} pointer-events-none`}
-                    priority={true}
                 />
             </div>
         </div>
