@@ -49,10 +49,10 @@ export default function Projects() {
     return (
         <>
             <h1 id="projects" className="sr-only translate-y-[-8rem]">Projects</h1>
-            <div className="h-full relative overflow-x-hidden">
+            <div className="h-full relative overflow-x-hidden max-w-[1400px] m-auto">
                 <ChevronIcon role="button" onClick={() => slideBy(-1)} className="md:hidden absolute top-[50%] translate-y-[-50%] size-10 left-2 rotate-180 bg-primary-600 hover:bg-primary-400 cursor-pointer rounded-full z-50 pl-0.5" />
                 <ChevronIcon role="button" onClick={() => slideBy(1)} className="md:hidden absolute top-[50%] translate-y-[-50%] size-10 right-2 bg-primary-600 hover:bg-primary-400 cursor-pointer rounded-full z-50 pl-0.5" />
-                <div className="h-full md:px-4 px-8 grid md:grid-cols-2 md:grid-rows-1 xl:grid-cols-4 xl:grid-rows-1 gap-4 relative group">
+                <div className="h-full md:px-4 px-8 grid md:grid-cols-2 md:grid-rows-1 gap-4 relative group">
                     {projectsConfig.projects.map((e,i)=>(
                         <SmallProject
                             ref={projects[i]}

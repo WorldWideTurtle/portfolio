@@ -28,7 +28,7 @@ const SmallProject = forwardRef<HTMLDivElement, SmallProjectProps>((props, ref) 
                 className="aspect-video p-2 pb-0"
             />
             <div className="font-math px-4 md:text-lg">
-                <h3 className="text-center text-3xl sm:text-5xl md:text-4xl font-edo [--offset:1px] md:[--offset:2px] translate-y-[-50%]" style={{
+                <h3 className="text-center text-3xl sm:text-4xl lg:text-5xl font-edo [--offset:1px] md:[--offset:2px] translate-y-[-50%]" style={{
                     textShadow: "0px var(--offset) 0px " + fullConfig.theme.colors["accent-red"]
                 }}>{project.name}</h3>
                 <p className="text-justify text-white-700 mt-4" dangerouslySetInnerHTML={{__html:project.text.short}}></p>
