@@ -17,11 +17,16 @@ interface SmallProjectProps {
     className?: string
 }
 
+let cardBG = fullConfig.theme.colors.primary[200]
+let accentRed = fullConfig.theme.colors["accent-red"] + "70"
 
 const SmallProject = forwardRef<HTMLDivElement, SmallProjectProps>((props, ref) => {
     const project = props.project;
     return (
-        <div ref={ref} className={classNames("grid relative h-full grid-rows-[auto_1fr_auto] bg-primary-200 rounded-2xl isolate overflow-hidden",props.className)}>
+        // Background based on https://gist.github.com/stereokai/36dc0095b9d24ce93b045e2ddc60d7a0
+        <div ref={ref} className={classNames("grid relative border-solid border-2 border-transparent h-full grid-rows-[auto_1fr_auto] rounded-2xl isolate overflow-hidden",props.className)} style={{
+            background: `linear-gradient(${cardBG}, ${cardBG}) 0% 0% / auto content-box content-box, conic-gradient(from .375turn, transparent, ${accentRed},transparent, ${accentRed}, transparent) 0% 0% / auto border-box border-box`
+        }}>
             <img 
                 src={`${project.image.src}.webp`}
                 alt={project.image.alt}
@@ -47,14 +52,14 @@ const SmallProject = forwardRef<HTMLDivElement, SmallProjectProps>((props, ref) 
             <img 
                 src={images.GradientBG}
                 alt=""
-                className="absolute left-0 bottom-0 w-full -scale-100 -z-10 opacity-50 max-w-[50vmax]"
+                className="absolute left-0 bottom-0 w-full -scale-100 -z-10 opacity-30 max-w-[40vmax]"
                 aria-hidden
                 draggable={false}
             />
             <img 
                 src={images.GradientBG}
                 alt=""
-                className="absolute top-0 right-0 w-full -z-10 opacity-25 max-w-[50vmax]"
+                className="absolute top-0 right-0 w-full -z-10 opacity-25 max-w-[30vmax]"
                 aria-hidden
                 draggable={false}
                 
