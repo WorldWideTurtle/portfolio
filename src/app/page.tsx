@@ -1,5 +1,4 @@
 import About from "@/components/Sections/about";
-import Contact from "@/components/Sections/Contact";
 import Hero from "@/components/Sections/hero";
 import Projects from "@/components/Sections/projects";
 import Skills from "@/components/Sections/skills";
@@ -16,7 +15,6 @@ export default function Home() {
 			<Spacer />
 			<Projects />
 			<Spacer />
-			<Contact />
 		</>
 	);
 }
