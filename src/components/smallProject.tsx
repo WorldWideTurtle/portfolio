@@ -6,10 +6,17 @@ import classNames from "classnames"
 import { forwardRef } from "react"
 import { Project } from "@/config/projects.config"
 
+import resolveConfig from 'tailwindcss/resolveConfig';
+import tailwindConfig from '../../tailwind.config.ts';
+
+const fullConfig = resolveConfig(tailwindConfig)
+
+
 interface SmallProjectProps {
     project: Project
     className?: string
 }
+
 
 const SmallProject = forwardRef<HTMLDivElement, SmallProjectProps>((props, ref) => {
     const project = props.project;
@@ -18,11 +25,11 @@ const SmallProject = forwardRef<HTMLDivElement, SmallProjectProps>((props, ref) 
             <img 
                 src={`${project.image.src}.webp`}
                 alt={project.image.alt}
-                className="aspect-video p-2"
+                className="aspect-video p-2 pb-0"
             />
-            <div className="font-math mt-3 p-4 md:text-lg">
-                <h3 className="text-center text-3xl lg:text-5xl font-edo -mt-12 lg:-mt-14" style={{
-                    textShadow: "0px 2px 0px red"
+            <div className="font-math px-4 md:text-lg">
+                <h3 className="text-center text-3xl sm:text-5xl md:text-4xl font-edo [--offset:1px] md:[--offset:2px] translate-y-[-50%]" style={{
+                    textShadow: "0px var(--offset) 0px " + fullConfig.theme.colors["accent-red"]
                 }}>{project.name}</h3>
                 <p className="text-justify text-white-700 mt-4" dangerouslySetInnerHTML={{__html:project.text.short}}></p>
                 <ul aria-label={`Key points about ${project.name}`} className="mt-2 flex flex-col gap-1 list-disc">
