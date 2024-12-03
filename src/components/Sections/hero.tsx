@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import classes from './hero.module.css'
 import VerticalText from './verticalText'
 import { images } from '@/config/image.config'
