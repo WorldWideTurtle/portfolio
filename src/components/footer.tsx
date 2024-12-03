@@ -13,7 +13,7 @@ export default function Footer() {
                     <nav>
                         <ul className="flex justify-center gap-6">
                             {headerConfig.links.map(e=>(
-                                <Link className="text-xl md:text-3xl " href={e.href}>{e.name}</Link>
+                                <Link key={e.name} className="text-xl md:text-3xl " href={e.href}>{e.name}</Link>
                             ))}
                         </ul>
                     </nav>
