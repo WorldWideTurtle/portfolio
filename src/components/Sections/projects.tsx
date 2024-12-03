@@ -1,6 +1,6 @@
 'use client'
 
-import ChevronIcon from "@/icons/chevron-Right.svg"
+import ChevronIcon from "@/icons/Chevron-right.svg"
 import SmallProject from "../smallProject"
 import { useRef, useState, MutableRefObject, useEffect, MouseEvent } from "react"
 import Link from "next/link"
