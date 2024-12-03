@@ -1,15 +1,29 @@
 import skillsConfig from "@/config/skills.config"
-import { readFileSync } from "fs"
 import path from "path"
 import SkillLantern from "../skillLantern";
+import { readFile } from "fs/promises";
 
 
-export default function Skills() {
-    // Read icon file in sync since it's easier
-    // This page is compiled at build time so speed is not a concern
-    function getSkillIcon(name : string) : string {
-        return readFileSync(path.join(process.cwd(),"src/icons/skills/", name + ".svg"),{ encoding: 'utf8', flag: 'r' });
+export default async function Skills() {
+    const skillIconsPath = path.join(process.cwd(),"src/icons/skills/")
+    const iconTable : Map<string,string> = new Map()
+
+    async function loadSkillIcons() {
+        const iconPromises = skillsConfig.skills.map(async (e)=>{
+            const filePath = path.join(skillIconsPath, `${e.iconName}.svg`);
+            try {
+                let data = await readFile(filePath,'utf8')
+                iconTable.set(e.iconName,data);
+            } catch (error) {
+                console.error(`Error reading file for ${e.iconName}:`,error)
+                iconTable.set(e.iconName,e.skillName);
+            }
+        })
+
+        await Promise.all(iconPromises)
     }
+
+    await loadSkillIcons();
 
     function generateSkillIcons() {
         let skills = skillsConfig.skills;
@@ -18,7 +32,7 @@ export default function Skills() {
         <>
             {skills.map((e,i)=>{
                 return (
-                    <SkillLantern key={e.skillName} icon={getSkillIcon(e.iconName)} skill={e} zIndex={skills.length + 5 - i}/>
+                    <SkillLantern key={e.skillName} icon={iconTable.get(e.iconName) ?? ""} skill={e} zIndex={skills.length + 5 - i}/>
                 ) 
             })}
         </>
