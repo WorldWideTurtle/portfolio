@@ -1,3 +1,4 @@
+import Footer from "@/components/footer";
 import About from "@/components/Sections/about";
 import Hero from "@/components/Sections/hero";
 import Projects from "@/components/Sections/projects";
@@ -15,6 +16,8 @@ export default function Home() {
 			<Spacer />
 			<Projects />
 			<Spacer />
+			<Footer />
 		</>
 	);
 }
+
