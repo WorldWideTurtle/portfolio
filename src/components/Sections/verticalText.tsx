@@ -48,7 +48,7 @@ export default function VerticalText() {
     function generateTextElements(classes : string = "") {
         return accentText.map((text,textIndex)=>{
             return (
-                <div key={"text" + textIndex} className={textIndex > 0 ? " mt-32" : ""}>
+                <div key={"text" + textIndex} aria-hidden className={textIndex > 0 ? " mt-32" : ""}>
                     {
                         Array.from(text).map((char,charIndex)=>(
                             <div key={text + "_" + charIndex} className={"child mt-4 " + classes}>{char}</div>
