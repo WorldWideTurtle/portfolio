@@ -7,12 +7,12 @@ import Link from "next/link"
 import projectsConfig from "@/config/projects.config"
 
 export default function Projects() {
-    let [state,setState] = useState({
+    const [state,setState] = useState({
         index:0,
         action:0
     })
 
-    let allClasses = [
+    const allClasses = [
         "-translate-x-[100vw]",
         "translate-x-0",
         "translate-x-[100vw]"
@@ -20,7 +20,7 @@ export default function Projects() {
 
     let projects : MutableRefObject<HTMLDivElement | null>[] = projectsConfig.projects.map(e=>useRef(null));
 
-    function slideBy(x : number) {
+    function slideBy(e : MouseEvent,x : number) {
         setState({
             index:getWrappedIndex(state.index + x),
             action:x
@@ -40,7 +40,7 @@ export default function Projects() {
                 if (state.action === 0 || (i !== state.index && state.action !== state.index - i)) {
                     project.style.transitionDuration = "0ms"
                 } else {
-                    project.style.transitionDuration = "300ms"
+                    project.style.transitionDuration = `${projectsConfig.slideDuration}ms`
                 } 
             }
         }
@@ -50,13 +50,13 @@ export default function Projects() {
         <>
             <h1 id="projects" className="sr-only translate-y-[-8rem]">Projects</h1>
             <div className="h-full relative overflow-x-hidden max-w-[1400px] m-auto">
-                <ChevronIcon role="button" onClick={() => slideBy(-1)} className="md:hidden absolute top-[50%] translate-y-[-50%] size-10 left-2 rotate-180 bg-primary-600 cursor-pointer rounded-full z-50 pl-0.5" />
-                <ChevronIcon role="button" onClick={() => slideBy(1)} className="md:hidden absolute top-[50%] translate-y-[-50%] size-10 right-2 bg-primary-600 hover:bg-primary-400 cursor-pointer rounded-full z-50 pl-0.5" />
+                <ChevronIcon role="button" onClick={(e : MouseEvent) => slideBy(e,-1)} className="md:hidden absolute top-[50%] translate-y-[-50%] size-10 left-2 rotate-180 bg-primary-600 cursor-pointer rounded-full z-50 pl-0.5" />
+                <ChevronIcon role="button" onClick={(e : MouseEvent) => slideBy(e,1)} className="md:hidden absolute top-[50%] translate-y-[-50%] size-10 right-2 bg-primary-600 hover:bg-primary-400 cursor-pointer rounded-full z-50 pl-0.5" />
                 <div className="h-full md:px-4 px-8 grid md:grid-cols-2 md:grid-rows-1 gap-4 relative group">
                     {projectsConfig.projects.map((e,i)=>(
                         <SmallProject
                             ref={projects[i]}
-                            className={`transition-[transform_opacity] max-md:col-start-1 max-md:row-start-1 ${i > 0 ? "translate-x-[100vw]" : ""} md:!translate-x-0 group-hover:opacity-70 hover:!opacity-100`}
+                            className={`transition-[transform_opacity] ease-in max-md:col-start-1 max-md:row-start-1 ${i > 0 ? "translate-x-[100vw]" : ""} md:!translate-x-0 group-hover:opacity-70 hover:!opacity-100`}
                             project={e}
                             key={i}
                         /> 

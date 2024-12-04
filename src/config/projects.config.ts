@@ -19,9 +19,11 @@ export type { Project };
 
 interface ProjectsConfig {
     projects: Array<Project>
+    slideDuration: number
 } 
 
 const projectsConfig : ProjectsConfig = {
+    slideDuration: 300,
     projects: [
         {
             name: "Sudoku-Solver",
