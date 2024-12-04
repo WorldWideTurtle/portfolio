@@ -8,7 +8,7 @@ export default function Footer() {
             <StrokeIcon className="w-full min-w-[1200px] h-auto fill-primary-200"/>
             <div className="bg-gradient-to-b from-primary-200 to-primary-200 via-primary-300 pb-2">
                 <div className="w-fit m-auto">
-                    <h3 className="text-3xl md:text-6xl ">Continue exploring</h3>
+                    <h3 className="text-3xl md:text-6xl text-center">Continue exploring</h3>
                     <hr className="m-3"/>
                     <nav>
                         <ul className="flex justify-center gap-6">
@@ -17,7 +17,7 @@ export default function Footer() {
                             ))}
                         </ul>
                     </nav>
-                    <h4 className="mt-4 text-sm font-math text-center opacity-70">&copy; {(new Date()).getFullYear()} WorldWideTurtle. All Rights Reserved</h4>
+                    <h4 className="mt-4 md:text-sm text-[10px] font-math text-center opacity-70">&copy; {(new Date()).getFullYear()} WorldWideTurtle. All Rights Reserved</h4>
                 </div>
             </div>
         </footer>
