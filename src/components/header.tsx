@@ -1,15 +1,15 @@
 'use client'
 
-import { MutableRefObject, useEffect, useRef, useState } from "react"
+import { MutableRefObject, useCallback, useEffect, useRef, useState } from "react"
 import styles from "./header.module.css"
 import Link from "next/link"
 import headerConfig from "@/config/header.config"
 import BambooIcon from "@/icons/bamboo.svg"
 
 export default function Header() {
-    let [isNavOpen,setNavOpen] = useState(false)
-    let navbar : MutableRefObject<HTMLHeadingElement | null> = useRef(null)
-    let navButton : MutableRefObject<HTMLButtonElement | null> = useRef(null)
+    const [isNavOpen,setNavOpen] = useState(false)
+    const navbar : MutableRefObject<HTMLHeadingElement | null> = useRef(null)
+    const navButton : MutableRefObject<HTMLButtonElement | null> = useRef(null)
 
     useEffect(()=>{
         if (navButton.current === null) return;
@@ -29,18 +29,19 @@ export default function Header() {
             return Math.min(1, scrollOffset / maxOffset);
         }
 
-        let current = getCurrentRatio();
-        let start = getCurrentRatio();
-        let target = start;
-        let time = 0;
+        let startValue = getCurrentRatio();
+        let targetValue = startValue;
+
+        let currentValue = startValue;
+        let timeOfAnimation = 0;
         let duration = headerConfig.transitionDuration;
 
         let updateScrollRatio = () => {
             let ratio = getCurrentRatio()
-            if (ratio !== target) {
-                start = current;
-                target = ratio;
-                time = 0;
+            if (ratio !== targetValue) {
+                startValue = currentValue;
+                targetValue = ratio;
+                timeOfAnimation = 0;
             };
         }
 
@@ -49,22 +50,23 @@ export default function Header() {
         let updateNavVisual = () => {
             if (navbar.current === null) return;
 
-            navbar.current.style.setProperty("--stop",(current * 90).toString() + "%")
-            navbar.current.style.setProperty("--tw-bg-opacity",(current * .7).toString());
+            let final = isNavOpen ? 1 : currentValue;
+            navbar.current.style.setProperty("--stop",(final * 90).toString() + "%")
+            navbar.current.style.setProperty("--tw-bg-opacity",(final * (isNavOpen ? .9 : .7)).toString());
         }
 
         let canceled = false;
-        let startTime = performance.now();
+        let timeOfLastTween = performance.now();
         let tween = () => {
             if (canceled) return;
 
-            let dt = performance.now() - startTime;
-            startTime = performance.now();
-            time = Math.min(time + dt, duration);
-            current = start + (target - start) * timingFunction(time / duration);
-            let isDirty = current !== target;
-            if (isDirty && Math.abs(current - target) < 0.01) {
-                current = target;
+            let deltaTime = performance.now() - timeOfLastTween;
+            timeOfLastTween = performance.now();
+            timeOfAnimation = Math.min(timeOfAnimation + deltaTime, duration);
+            currentValue = startValue + (targetValue - startValue) * timingFunction(timeOfAnimation / duration);
+            let isDirty = currentValue !== targetValue;
+            if (isDirty && Math.abs(currentValue - targetValue) < 0.01) {
+                currentValue = targetValue;
                 isDirty = true;
             }
 
@@ -83,26 +85,26 @@ export default function Header() {
             document.removeEventListener("scroll",updateScrollRatio);
             canceled = true;
         }
-    }, [])
+    }, [isNavOpen])
+
 
     return (
-        <header role="banner" ref={navbar} className={"w-full bg-primary-100 bg-opacity-0 flex justify-between items-center py-1 md:py-2 text-lg md:text-xl lg:text-2xl fixed z-[9999] after:w-full after:h-px after:absolute after:bottom-0 backdrop-blur-sm " + styles.base}>
-            <h1 className="pl-3 md:pl-6"><a href="/">{headerConfig.title}</a></h1>
-            <nav role="navigation" className="h-fit md:pr-6 pr-3">
-                <ul className="gap-6 group hidden md:flex" aria-label="Page navigation">
-                    {headerConfig.links.map(e=>(
-                        <li className="hover:!text-white-900 group-hover:text-white-300 transition-[color]" key={e.name}><Link href={e.href}>{e.name}</Link></li>
-                    ))}
-                </ul>
-                <button onClick={()=>{setNavOpen(!isNavOpen)}} ref={navButton} className="md:hidden size-5 flex flex-col justify-items-center justify-between aspect-square" aria-label="Reveal navigation menu">
-                    {(new Array(3)).fill(0).map(e=>(
-                        <BambooIcon className={"fill-white-900 " + (isNavOpen ? "!fill-primary-200" : "")}/>
-                    ))}
+        <header role="banner" ref={navbar} className={"w-full bg-primary-100 bg-opacity-0 py-2 text-xl lg:text-2xl fixed z-[9999] after:w-full after:h-px after:absolute after:bottom-0 backdrop-blur-sm " + styles.base}>
+            <div className="md:flex md:justify-between md:items-center relative mx-3 md:mx-6">
+                <h1><a href="/">{headerConfig.title}</a></h1>
+                <nav role="navigation">
+                    <ul aria-label="Page navigation" className={"h-auto flex max-md:flex-col md:gap-6 gap-1 max-md:pl-2 transition-all overflow-hidden " + (isNavOpen ? "max-h-[99rem] max-md:pt-4" : "max-md:max-h-0 pt-0")}>
+                        {headerConfig.links.map(e=>(
+                            <li onClick={()=>setNavOpen(false)} className="max-md:text-lg" key={e.name}><Link href={e.href}>{e.name}</Link></li>
+                        ))}
+                    </ul>
+                </nav>
+                <button onClick={()=>setNavOpen(!isNavOpen)} ref={navButton} className="md:hidden absolute right-0 top-0 size-6 flex flex-col justify-items-center justify-between aspect-square py-1" aria-label="Reveal navigation menu">
+                    <BambooIcon className={"transition-all ease-out " + (isNavOpen ? "fill-accent-jade rotate-45 translate-y-[180%]" : "fill-white-900")}/>
+                    <BambooIcon className={"transition-all ease-out " + (isNavOpen ? "hidden" : "fill-white-900")}/>
+                    <BambooIcon className={"transition-all ease-out " + (isNavOpen ? "fill-accent-jade -rotate-45 -translate-y-[180%]" : "fill-white-900")}/>
                 </button>
-                <div className="md:hidden">
-                    
-                </div>
-            </nav>
+            </div>
         </header>
     )
 }
