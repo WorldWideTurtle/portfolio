@@ -1,12 +1,22 @@
 'use client'
 
-import { MutableRefObject, useEffect, useRef } from "react"
+import { MutableRefObject, useEffect, useRef, useState } from "react"
 import styles from "./header.module.css"
 import Link from "next/link"
 import headerConfig from "@/config/header.config"
+import BambooIcon from "@/icons/bamboo.svg"
 
 export default function Header() {
+    let [isNavOpen,setNavOpen] = useState(false)
     let navbar : MutableRefObject<HTMLHeadingElement | null> = useRef(null)
+    let navButton : MutableRefObject<HTMLButtonElement | null> = useRef(null)
+
+    useEffect(()=>{
+        if (navButton.current === null) return;
+        
+        navButton.current.classList.remove.apply(navButton.current.classList,["open","closed"])
+        navButton.current.classList.add(isNavOpen ? "open" : "closed")
+    }, [isNavOpen])
 
     useEffect(()=>{
         if (navbar.current === null) return;
@@ -76,14 +86,22 @@ export default function Header() {
     }, [])
 
     return (
-        <header role="banner" ref={navbar} className={"w-full bg-primary-100 bg-opacity-0 flex justify-between py-1 md:py-2 text-lg md:text-xl lg:text-2xl fixed z-[9999] after:w-full after:h-px after:absolute after:bottom-0 backdrop-blur-sm " + styles.base}>
+        <header role="banner" ref={navbar} className={"w-full bg-primary-100 bg-opacity-0 flex justify-between items-center py-1 md:py-2 text-lg md:text-xl lg:text-2xl fixed z-[9999] after:w-full after:h-px after:absolute after:bottom-0 backdrop-blur-sm " + styles.base}>
             <h1 className="pl-3 md:pl-6"><a href="/">{headerConfig.title}</a></h1>
-            <nav role="navigation" className="hidden md:inline md:pr-6 pr-3">
-                <ul className="flex gap-6 group" aria-label="Page navigation">
+            <nav role="navigation" className="h-fit md:pr-6 pr-3">
+                <ul className="gap-6 group hidden md:flex" aria-label="Page navigation">
                     {headerConfig.links.map(e=>(
                         <li className="hover:!text-white-900 group-hover:text-white-300 transition-[color]" key={e.name}><Link href={e.href}>{e.name}</Link></li>
                     ))}
                 </ul>
+                <button onClick={()=>{setNavOpen(!isNavOpen)}} ref={navButton} className="md:hidden size-5 flex flex-col justify-items-center justify-between aspect-square" aria-label="Reveal navigation menu">
+                    {(new Array(3)).fill(0).map(e=>(
+                        <BambooIcon className={"fill-white-900 " + (isNavOpen ? "!fill-primary-200" : "")}/>
+                    ))}
+                </button>
+                <div className="md:hidden">
+                    
+                </div>
             </nav>
         </header>
     )
