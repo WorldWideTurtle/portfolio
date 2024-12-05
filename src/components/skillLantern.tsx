@@ -96,7 +96,7 @@ export default function SkillLantern(props : SkillLanternProps) {
     }, [])
 
     return (
-        <div ref={observerBox} className="relative w-fit isolate" style={{
+        <div ref={observerBox} className="relative w-fit isolate" title={skill.skillName} style={{
                     zIndex: props.zIndex,
                     ...props.style
         }}>
