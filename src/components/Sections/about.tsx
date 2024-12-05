@@ -24,7 +24,7 @@ export default function About() {
               },
             {
                 root: null,
-                threshold: 1,
+                threshold: .7,
             }
         );
         
@@ -42,13 +42,13 @@ export default function About() {
     }, [])
 
     return (
-        <div ref={boundsRef} className="relative h-fit isolate grid place-items-center">
+        <div ref={boundsRef} className="relative h-fit isolate grid place-items-center px-4">
             <h1 id="about" className="sr-only translate-y-[-2rem] absolute top-0">About</h1>
             <Taurus ref={zodiacRef} className="brightness-150 aspect-square transition-all duration-1000 row-start-1 col-start-1 w-full max-w-[600px] opacity-30" style={{
                 strokeDasharray: "80 80",
                 strokeDashoffset: "80"
             }}/>
-            <div ref={textRef} className="max-w-text tracking-[0.075em] md:text-xl text-justify m-auto px-8 pb-4 -mt-8">
+            <div ref={textRef} className="max-w-text tracking-[0.075em] md:text-xl text-justify m-auto px-4 pb-4 -mt-8">
                 <span>Sebastian Eckhard (HE/HIM) - </span>
                 <span className="text-white-600 font-math">I love building experiences that impress, not only visually, but also on a technical level. When I'm not working on my own projects, I like to take pictures, read or play games.</span>
             </div>
