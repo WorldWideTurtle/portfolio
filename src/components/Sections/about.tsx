@@ -1,8 +1,8 @@
 'use client'
 
 import { MutableRefObject, useEffect, useRef } from "react"
-import TaurusIcon from "@/icons/Taurus.svg"
 import Taurus from "../taurus"
+import classes from "../taurus.module.css"
 
 export default function About() {
     const boundsRef : MutableRefObject<HTMLDivElement | null> = useRef(null)
@@ -18,8 +18,7 @@ export default function About() {
 
                     setTimeout(()=>{
                         if (zodiacRef.current === null) return;
-                        zodiacRef.current.style.transitionDuration = "4s"
-                        zodiacRef.current.style.strokeDashoffset = "0"
+                        zodiacRef.current.classList.add(classes.animateStroke)
                     }, 300)
                 }
               },
