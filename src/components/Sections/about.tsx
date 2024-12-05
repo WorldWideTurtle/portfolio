@@ -9,6 +9,8 @@ export default function About() {
     const textRef : MutableRefObject<HTMLDivElement | null> = useRef(null)
     const zodiacRef : MutableRefObject<SVGSVGElement | null> = useRef(null)
 
+    const visibilityRatio = 0.6;
+
     useEffect(()=>{
         const styteStyles = {
             opacity: [0.3, 1],
@@ -17,13 +19,13 @@ export default function About() {
         }
         const observer = new IntersectionObserver(
             ([entry]) => {
-                let isIntersecting = (entry.intersectionRatio > 0.7) ? 1 : 0;
+                let isIntersecting = (entry.intersectionRatio >= visibilityRatio) ? 1 : 0;
                 Object.entries(styteStyles).forEach(([property,values])=>{
                     if (zodiacRef.current === null) return;
                     //@ts-ignore
                     zodiacRef.current.style[property] = values[isIntersecting]
                 })
-                if (entry.intersectionRatio < 0.7) {
+                if (entry.intersectionRatio < visibilityRatio) {
                     setVisible(false)
                 } else {
                     setVisible(true)
@@ -31,7 +33,7 @@ export default function About() {
               },
             {
                 root: null,
-                threshold: [0,.7],
+                threshold: [0,visibilityRatio],
             }
         );
         
