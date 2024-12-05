@@ -10,6 +10,7 @@ let themeBG = tailwindConfig.theme.colors.primary[100]
 type Props = {
     className : string
     style : CSSProperties
+    shouldAnimate: boolean
 }
 
 type PathNode = [number,number]
@@ -95,50 +96,60 @@ let component = (props : Props,ref : ForwardedRef<any>) => {
         return circles;
     }
 
-    useEffect(()=>{
-        let interval = setInterval(()=>{
-            let groupItterator = 0;
-            let randomSize = 2;
-            for (let groupIndex = 0; groupIndex < targets.length; groupIndex++) {
-                let baseGroup = basePoints[groupIndex];
-                let activeGroup = targets[groupIndex];
-                let groupLength = baseGroup.length - 1;
-                for (let i = 0; i <= groupLength; i++) {
-                    if (groupItterator > 0 && i === groupLength) continue;
-                    let [baseX, baseY] = baseGroup[i];
-                    if (Math.random() > 0.7) {
-                        activeGroup[i][0] = baseX + Math.random() * randomSize - randomSize / 2
-                        activeGroup[i][1] = baseY + Math.random() * randomSize - randomSize / 2
-                    }
-                }
-                groupItterator++;
-            }
-        }, 1000)
+    const updateTargetPositions = () => {
+        if (!props.shouldAnimate) return;
 
+        let groupItterator = 0;
+        let randomSize = 2;
+        for (let groupIndex = 0; groupIndex < targets.length; groupIndex++) {
+            let baseGroup = basePoints[groupIndex];
+            let activeGroup = targets[groupIndex];
+            let groupLength = baseGroup.length - 1;
+            for (let i = 0; i <= groupLength; i++) {
+                if (groupItterator > 0 && i === groupLength) continue;
+                let [baseX, baseY] = baseGroup[i];
+                if (Math.random() > 0.7) {
+                    activeGroup[i][0] = baseX + Math.random() * randomSize - randomSize / 2
+                    activeGroup[i][1] = baseY + Math.random() * randomSize - randomSize / 2
+                }
+            }
+            groupItterator++;
+        }
+    }
+
+    const updateCurrentPositions = () => {
+        if (!props.shouldAnimate) return;
+
+        let newPoints = [...points];
+        let groupItterator = 0;
+        for (let groupIndex = 0; groupIndex < newPoints.length; groupIndex++) {
+            let currentGroup = newPoints[groupIndex];
+            let targetGroup = targets[groupIndex];
+            let groupLength = currentGroup.length - 1;
+            for (let i = 0; i <= groupLength; i++) {
+                if (i === groupLength && groupItterator > 0) continue;
+                let [targetX,targetY] = targetGroup[i];
+                let [currentX,currentY] = currentGroup[i];
+                if (Math.abs(targetX - currentX) > 0.05) {
+                    currentGroup[i][0] += (targetX - currentX) * .02
+                }
+                if (Math.abs(targetY - currentY) > 0.05) {
+                    currentGroup[i][1] += (targetY - currentY) * .02
+                }
+            }
+            groupItterator ++;
+        }
+        setPoints(newPoints)
+    }
+
+    useEffect(()=>{
+        let interval = setInterval(updateTargetPositions, 1000)
+        updateTargetPositions();
 
         let requestedAnimationFrame : number | null = null;
         let tween = () => {
             requestedAnimationFrame = requestAnimationFrame(tween);
-            let newPoints = [...points];
-            let groupItterator = 0;
-            for (let groupIndex = 0; groupIndex < newPoints.length; groupIndex++) {
-                let currentGroup = newPoints[groupIndex];
-                let targetGroup = targets[groupIndex];
-                let groupLength = currentGroup.length - 1;
-                for (let i = 0; i <= groupLength; i++) {
-                    if (i === groupLength && groupItterator > 0) continue;
-                    let [targetX,targetY] = targetGroup[i];
-                    let [currentX,currentY] = currentGroup[i];
-                    if (Math.abs(targetX - currentX) > 0.05) {
-                        currentGroup[i][0] += (targetX - currentX) * .02
-                    }
-                    if (Math.abs(targetY - currentY) > 0.05) {
-                        currentGroup[i][1] += (targetY - currentY) * .02
-                    }
-                }
-                groupItterator ++;
-            }
-            setPoints(newPoints)
+            updateCurrentPositions()
         }
 
         tween()
@@ -148,7 +159,7 @@ let component = (props : Props,ref : ForwardedRef<any>) => {
             if (requestedAnimationFrame !== null)
             cancelAnimationFrame(requestedAnimationFrame)
         }
-    }, [])
+    }, [props.shouldAnimate])
 
     return (
         <svg ref={ref} xmlns="http://www.w3.org/2000/svg" viewBox="-5 -5 70 52" fill="url(#Gradient1)" className={props.className} style={props.style}>

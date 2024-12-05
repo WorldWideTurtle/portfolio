@@ -1,30 +1,37 @@
 'use client'
 
-import { MutableRefObject, useEffect, useRef } from "react"
+import { MutableRefObject, useEffect, useRef, useState } from "react"
 import Taurus from "../taurus"
-import classes from "../taurus.module.css"
 
 export default function About() {
+    const [isVisible, setVisible] = useState(false)
     const boundsRef : MutableRefObject<HTMLDivElement | null> = useRef(null)
     const textRef : MutableRefObject<HTMLDivElement | null> = useRef(null)
     const zodiacRef : MutableRefObject<SVGSVGElement | null> = useRef(null)
 
     useEffect(()=>{
+        const styteStyles = {
+            opacity: [0.3, 1],
+            strokeDashoffset: [80, 0],
+            scale: [1, 1.05]
+        }
         const observer = new IntersectionObserver(
             ([entry]) => {
-                if (entry.isIntersecting) {
+                let isIntersecting = (entry.intersectionRatio > 0.7) ? 1 : 0;
+                Object.entries(styteStyles).forEach(([property,values])=>{
                     if (zodiacRef.current === null) return;
-                    zodiacRef.current.style.opacity = ".8"
-
-                    setTimeout(()=>{
-                        if (zodiacRef.current === null) return;
-                        zodiacRef.current.classList.add(classes.animateStroke)
-                    }, 300)
+                    //@ts-ignore
+                    zodiacRef.current.style[property] = values[isIntersecting]
+                })
+                if (entry.intersectionRatio < 0.7) {
+                    setVisible(false)
+                } else {
+                    setVisible(true)
                 }
               },
             {
                 root: null,
-                threshold: .7,
+                threshold: [0,.7],
             }
         );
         
@@ -44,7 +51,7 @@ export default function About() {
     return (
         <div ref={boundsRef} className="relative h-fit isolate grid place-items-center px-4">
             <h1 id="about" className="sr-only translate-y-[-2rem] absolute top-0">About</h1>
-            <Taurus ref={zodiacRef} className="brightness-150 aspect-square transition-all duration-1000 row-start-1 col-start-1 w-full max-w-[600px] opacity-30" style={{
+            <Taurus ref={zodiacRef} shouldAnimate={isVisible} className="brightness-150 aspect-square transition-all duration-1000 row-start-1 col-start-1 w-full max-w-[600px] opacity-30" style={{
                 strokeDasharray: "80 80",
                 strokeDashoffset: "80"
             }}/>
