@@ -23,7 +23,7 @@ export default async function RootLayout({
 			<body>
 				<img 
 					src={images.GradientBG}
-					alt="Radial gradient from the top right corner towards the center of the page, fading from red to transparent."
+					alt=""
 					className="absolute right-0 top-0 w-[30vmax] -z-50"
 					aria-hidden
 				/>
