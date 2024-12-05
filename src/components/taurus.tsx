@@ -163,7 +163,7 @@ let component = (props : Props,ref : ForwardedRef<any>) => {
 
     return (
         <svg ref={ref} xmlns="http://www.w3.org/2000/svg" viewBox="-5 -5 70 52" fill="url(#Gradient1)" className={props.className} style={props.style}>
-            <path d={generatePath()} stroke={`${themeRed}80`} fill="none" strokeWidth=".2"/>
+            <path d={generatePath()} stroke={`${themeRed}80`} fill="none" strokeWidth=".2" filter="drop-shadow(0 0 .3 red)"/>
             {generateCircles()}
             <defs>
                 <radialGradient id="Gradient1">
