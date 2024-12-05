@@ -44,7 +44,6 @@ export default async function Skills() {
     
     return (
         <div className="px-[5%] pt-16 pb-12 overflow-hidden relative mt-16">
-            <h1 id="skills" className="sr-only translate-y-[-8rem]">Skills</h1>
             <div className="absolute w-full h-16 bg-gradient-to-b from-primary-100 to-transparent top-0 z-50"></div>
             {generateSkillIcons()}
         </div>

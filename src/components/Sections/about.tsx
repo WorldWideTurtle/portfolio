@@ -52,7 +52,6 @@ export default function About() {
 
     return (
         <div ref={boundsRef} className="relative h-fit isolate grid place-items-center px-4">
-            <h1 id="about" className="sr-only translate-y-[-2rem] absolute top-0">About</h1>
             <Taurus ref={zodiacRef} shouldAnimate={isVisible} className="brightness-150 aspect-square transition-all duration-1000 row-start-1 col-start-1 w-full max-w-[600px] opacity-30" style={{
                 strokeDasharray: "80 80",
                 strokeDashoffset: "80"

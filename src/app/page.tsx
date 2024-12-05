@@ -9,11 +9,11 @@ export default function Home() {
 		<>
 			<div className="pt-12"></div>
 			<Hero />
-			<Spacer />
+			<Spacer id="about" />
 			<About />
-			<Spacer />
+			<Spacer id="skills"  />
 			<Skills />
-			<Spacer />
+			<Spacer id="projects"  />
 			<Projects />
 			<div className="mt-12"></div>
 		</>
