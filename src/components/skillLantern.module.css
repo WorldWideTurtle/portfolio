@@ -7,7 +7,7 @@
 }
 
 .animate {
-    animation: appearFromTop 1.5s ease-in-out;
+    animation: appearFromTop 1s ease-in-out;
     animation-fill-mode: forwards;
 }
 
@@ -16,15 +16,15 @@
         transform: translateY(-100dvh);
     }
 
-    70% {
+    50% {
         transform: translateY(3dvh);
     }
 
-    85% {
+    75% {
         transform: translateY(-2dvh);
     }
 
-    96% {
+    89% {
         transform: translateY(.5dvh);
     }
 
