@@ -69,6 +69,15 @@ export default function SkillLantern(props : SkillLanternProps) {
             lanternAndChain.current.style.animationDelay = (Math.random() * 200).toString() + "ms";
         }
 
+        let randomTiltInterval : NodeJS.Timeout
+        let startRandomTilt = setTimeout(()=>{
+            randomTiltInterval = setInterval(()=>{
+                if (Math.random() > 0.95) {
+                    tiltLantern();
+                }
+            }, 400 + Math.random() * 500)
+        }, Math.random() * 500)
+
         return () => {
             if (skillElement.current) {
                 skillElement.current.removeEventListener("mouseleave",tiltLantern)
@@ -80,8 +89,11 @@ export default function SkillLantern(props : SkillLanternProps) {
                 observer.unobserve(observerBox.current);
             }
 
+            clearTimeout(startRandomTilt);
+            if (randomTiltInterval !== null)
+                clearInterval(randomTiltInterval)
         }
-    })
+    }, [])
 
     return (
         <div ref={observerBox} className="relative w-fit isolate" style={{
