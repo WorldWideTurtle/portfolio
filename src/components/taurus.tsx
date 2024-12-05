@@ -23,8 +23,8 @@ let component = (props : Props,ref : ForwardedRef<any>) => {
             <circle cx="36.3" cy="37.2" r="2"/>
             <defs>
                 <radialGradient id="Gradient1">
-                    <stop stopColor="rgba(255,255,255,.7)" offset="0%" />
-                    <stop stopColor="rgba(255,0,0,.7)" offset="40%" />
+                    <stop stopColor="rgba(255,255,255,1)" offset="0%" />
+                    <stop stopColor="rgba(255,0,0,.7)" offset="20%" />
                     <stop stopColor="rgba(255,0,0,0)" offset="100%" />
                 </radialGradient>
             </defs>
