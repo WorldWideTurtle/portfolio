@@ -15,7 +15,7 @@ export default function Home() {
 			<Skills />
 			<Spacer />
 			<Projects />
-			<Spacer />
+			<div className="mt-12"></div>
 		</>
 	);
 }
