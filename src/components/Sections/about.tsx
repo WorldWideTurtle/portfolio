@@ -5,11 +5,10 @@ import Taurus from "../taurus"
 
 export default function About() {
     const [isVisible, setVisible] = useState(false)
-    const boundsRef : MutableRefObject<HTMLDivElement | null> = useRef(null)
     const textRef : MutableRefObject<HTMLDivElement | null> = useRef(null)
     const zodiacRef : MutableRefObject<SVGSVGElement | null> = useRef(null)
 
-    const visibilityRatio = 0.6;
+    const visibilityRatio = .9;
 
     useEffect(()=>{
         const styteStyles = {
@@ -37,21 +36,21 @@ export default function About() {
             }
         );
         
-        if (boundsRef.current) {
-            observer.observe(boundsRef.current);
+        if (zodiacRef.current) {
+            observer.observe(zodiacRef.current);
         }
 
         
 
         return () => {
-            if (boundsRef.current) {
-                observer.unobserve(boundsRef.current);
+            if (zodiacRef.current) {
+                observer.unobserve(zodiacRef.current);
             }
         }
     }, [])
 
     return (
-        <div ref={boundsRef} className="relative h-fit isolate grid place-items-center px-4">
+        <div className="relative h-fit isolate grid place-items-center px-4">
             <Taurus ref={zodiacRef} shouldAnimate={isVisible} className="brightness-150 aspect-square transition-all duration-1000 row-start-1 col-start-1 w-full max-w-[600px] opacity-30" style={{
                 strokeDasharray: "80 80",
                 strokeDashoffset: "80"
