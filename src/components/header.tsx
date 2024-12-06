@@ -5,11 +5,15 @@ import styles from "./header.module.css"
 import Link from "next/link"
 import headerConfig from "@/config/header.config"
 import BambooIcon from "@/icons/bamboo.svg"
+import { usePathname } from "next/navigation"
+import classNames from "classnames"
 
 export default function Header() {
     const [isNavOpen,setNavOpen] = useState(false)
     const navbar : MutableRefObject<HTMLHeadingElement | null> = useRef(null)
     const navButton : MutableRefObject<HTMLButtonElement | null> = useRef(null)
+
+    const pathname = usePathname()
 
     useEffect(()=>{
         if (navButton.current === null) return;
@@ -93,10 +97,24 @@ export default function Header() {
             <div className="md:flex md:justify-between md:items-center relative mx-3 md:mx-6">
                 <h1><a href="/">{headerConfig.title}</a></h1>
                 <nav role="navigation">
-                    <ul aria-label="Page navigation" className={"h-auto flex max-md:flex-col md:gap-6 gap-1 max-md:pl-2 transition-all overflow-hidden " + (isNavOpen ? "max-h-[99rem] max-md:pt-4" : "max-md:max-h-0 pt-0")}>
-                        {headerConfig.links.map(e=>(
-                            <li onClick={()=>setNavOpen(false)} className="max-md:text-lg" key={e.name}><Link href={e.href}>{e.name}</Link></li>
-                        ))}
+                    <ul aria-label="Page navigation" className={"h-auto flex max-md:flex-col md:gap-6 gap-1 max-md:pl-2 group transition-all overflow-hidden " + (isNavOpen ? "max-h-[99rem] max-md:pt-4" : "max-md:max-h-0 pt-0")}>
+                        {headerConfig.links.map(e=>{
+                            const isActive = pathname === e.href
+                            return (
+                                <li onClick={()=>setNavOpen(false)} className="max-md:text-lg transition-[color] hover:!text-white-900 group-hover:text-white-600 " key={e.name}>
+                                    <Link 
+                                        href={e.href}
+                                        className={classNames(
+                                            {
+                                                "underline": isActive
+                                            }
+                                        )}
+                                    >
+                                        {e.name}
+                                    </Link>
+                                </li>
+                            )
+                        })}
                     </ul>
                 </nav>
                 <button onClick={()=>setNavOpen(!isNavOpen)} ref={navButton} className="md:hidden absolute right-0 top-0 size-6 flex flex-col justify-items-center justify-between aspect-square py-1" aria-label="Reveal navigation menu">
