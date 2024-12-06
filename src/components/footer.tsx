@@ -11,7 +11,7 @@ export default function Footer() {
                     <h3 className="text-3xl md:text-6xl text-center">Continue exploring</h3>
                     <hr className="m-3"/>
                     <nav>
-                        <ul className="flex justify-center gap-6">
+                        <ul className="flex justify-center md:gap-6 gap-3">
                             {headerConfig.links.map(e=>(
                                 <Link key={e.name} className="text-xl md:text-3xl " href={e.href}>{e.name}</Link>
                             ))}
