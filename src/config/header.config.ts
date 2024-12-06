@@ -14,16 +14,20 @@ const headerConfig : HeaderConfig = {
     title: "WorldWideTurtle",
     links: [
         {
+            name:"Home",
+            href:"/"
+        },
+        {
             name:"About",
-            href:"#about"
+            href:"/about"
         },
         {
             name:"Skills",
-            href:"#skills"
+            href:"/skills"
         },
         {
             name:"Projects",
-            href:"#projects"
+            href:"/projects"
         }
     ],
     clearance: 10,
