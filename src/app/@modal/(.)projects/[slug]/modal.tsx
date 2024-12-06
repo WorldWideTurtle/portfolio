@@ -36,11 +36,11 @@ export default function Modal({children} : {children : ReactNode}) {
         <dialog 
             ref={dialogRef} 
             onClick={clickHandler} 
-            className="bg-primary-300 border-solid border-[1px] border-primary-500 rounded-lg" 
+            className="bg-primary-300 border-solid border-[1px] border-primary-500 rounded-md" 
             onClose={onDismiss}
         >
             <div className="w-full flex justify-end">
-                <button onClick={onDismiss} className="close-button size-6 stroke-white-900 hover:stroke-accent-red">
+                <button onClick={onDismiss} className="close-button duration-100 size-6 stroke-white-900 hover:stroke-accent-red transition-[stroke]">
                     <CloseIcon className="w-full "/>
                 </button>
             </div>
