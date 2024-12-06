@@ -18,21 +18,18 @@ export default function About() {
         }
         const observer = new IntersectionObserver(
             ([entry]) => {
-                let isIntersecting = (entry.intersectionRatio >= visibilityRatio) ? 1 : 0;
+                let isIntersecting = (entry.intersectionRatio >= visibilityRatio - 0.05) ? 1 : 0;
                 Object.entries(styteStyles).forEach(([property,values])=>{
                     if (zodiacRef.current === null) return;
                     //@ts-ignore
                     zodiacRef.current.style[property] = values[isIntersecting]
                 })
-                if (entry.intersectionRatio < visibilityRatio) {
-                    setVisible(false)
-                } else {
-                    setVisible(true)
-                }
+
+                setVisible(isIntersecting === 1)
               },
             {
                 root: null,
-                threshold: [0,visibilityRatio],
+                threshold: [0,visibilityRatio - 0.1,visibilityRatio],
             }
         );
         
@@ -51,7 +48,7 @@ export default function About() {
 
     return (
         <div className="relative h-fit isolate grid place-items-center px-4">
-            <Taurus ref={zodiacRef} shouldAnimate={isVisible} className="brightness-150 aspect-square transition-all duration-1000 row-start-1 col-start-1 w-full max-w-[600px] opacity-30" style={{
+            <Taurus ref={zodiacRef} shouldAnimate={isVisible} className="brightness-150 pointer-events-none aspect-square transition-all duration-1000 row-start-1 col-start-1 w-full max-w-[600px] opacity-30" style={{
                 strokeDasharray: "80 80",
                 strokeDashoffset: "80"
             }}/>
