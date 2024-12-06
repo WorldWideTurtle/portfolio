@@ -20,7 +20,7 @@ export default function SkillLantern(props : SkillLanternProps) {
     let skill = props.skill;
     let skillElement : MutableRefObject<HTMLDivElement | null> = useRef(null)
     let lanternAndChain : MutableRefObject<HTMLDivElement | null> = useRef(null)
-    let observerBox : MutableRefObject<HTMLDivElement | null> = useRef(null)
+    let observerBox : MutableRefObject<HTMLLIElement | null> = useRef(null)
 
     useEffect(()=>{
         if (skillElement.current === null) return;
@@ -96,7 +96,7 @@ export default function SkillLantern(props : SkillLanternProps) {
     }, [])
 
     return (
-        <div ref={observerBox} className="relative w-fit isolate" title={skill.skillName} style={{
+        <li ref={observerBox} className="relative w-fit isolate" title={skill.skillName} style={{
                     zIndex: props.zIndex,
                     ...props.style
         }}>
@@ -125,6 +125,6 @@ export default function SkillLantern(props : SkillLanternProps) {
                     <div className={"aspect-[22/35] bg-cover translate-y-[-1px] " + classes.bottom}></div>
                 </div>
             </div>
-        </div>
+        </li>
     )
 }
