@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { MouseEvent, MutableRefObject, ReactNode, useEffect, useRef } from "react";
+import CloseIcon from "@/icons/Close.svg"
 
 export default function Modal({children} : {children : ReactNode}) {
     const router = useRouter()
@@ -32,9 +33,20 @@ export default function Modal({children} : {children : ReactNode}) {
     }
 
     return (
-        <dialog ref={dialogRef} onClick={clickHandler} className="modal" onClose={onDismiss}>
-            {children}
-            <button onClick={onDismiss} className="close-button size-4" />
+        <dialog 
+            ref={dialogRef} 
+            onClick={clickHandler} 
+            className="bg-primary-300 border-solid border-[1px] border-primary-500 rounded-lg" 
+            onClose={onDismiss}
+        >
+            <div className="w-full flex justify-end">
+                <button onClick={onDismiss} className="close-button size-6 stroke-white-900 hover:stroke-accent-red">
+                    <CloseIcon className="w-full "/>
+                </button>
+            </div>
+            <div className="p-2">
+                {children}
+            </div>
         </dialog>
     )
 }
