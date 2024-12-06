@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactNode } from "react";
 import localFont from 'next/font/local'
 import Header from "../components/header";
 import "@/styles/globals.css";
@@ -15,9 +15,12 @@ export const metadata: Metadata = {
   }
 
 export default async function RootLayout({
-	children
-} : {children: ReactElement}) {
-
+	children,
+	modal
+} : {
+	children: ReactNode
+	modal : ReactNode
+}) {
 	return (
 		<html className={`bg-primary-100 ${edo.className} ${edo.variable} overflow-x-hidden`} lang="en-US">
 			<body>
@@ -30,6 +33,7 @@ export default async function RootLayout({
 				<Header />
 				<main className="w-full">
 					{children}
+					{modal}
 				</main>
 				<Footer />
 			</body>
