@@ -22,10 +22,6 @@ const headerConfig : HeaderConfig = {
             href:"/about"
         },
         {
-            name:"Skills",
-            href:"/skills"
-        },
-        {
             name:"Projects",
             href:"/projects"
         }
